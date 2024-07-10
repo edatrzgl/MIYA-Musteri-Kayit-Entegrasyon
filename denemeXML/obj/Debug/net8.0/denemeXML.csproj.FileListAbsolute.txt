@@ -1,0 +1,14 @@
+/Users/nevdaterzioglu/Desktop/denemeXML/bin/Debug/net8.0/denemeXML
+/Users/nevdaterzioglu/Desktop/denemeXML/bin/Debug/net8.0/denemeXML.deps.json
+/Users/nevdaterzioglu/Desktop/denemeXML/bin/Debug/net8.0/denemeXML.runtimeconfig.json
+/Users/nevdaterzioglu/Desktop/denemeXML/bin/Debug/net8.0/denemeXML.dll
+/Users/nevdaterzioglu/Desktop/denemeXML/bin/Debug/net8.0/denemeXML.pdb
+/Users/nevdaterzioglu/Desktop/denemeXML/obj/Debug/net8.0/denemeXML.GeneratedMSBuildEditorConfig.editorconfig
+/Users/nevdaterzioglu/Desktop/denemeXML/obj/Debug/net8.0/denemeXML.AssemblyInfoInputs.cache
+/Users/nevdaterzioglu/Desktop/denemeXML/obj/Debug/net8.0/denemeXML.AssemblyInfo.cs
+/Users/nevdaterzioglu/Desktop/denemeXML/obj/Debug/net8.0/denemeXML.csproj.CoreCompileInputs.cache
+/Users/nevdaterzioglu/Desktop/denemeXML/obj/Debug/net8.0/denemeXML.dll
+/Users/nevdaterzioglu/Desktop/denemeXML/obj/Debug/net8.0/refint/denemeXML.dll
+/Users/nevdaterzioglu/Desktop/denemeXML/obj/Debug/net8.0/denemeXML.pdb
+/Users/nevdaterzioglu/Desktop/denemeXML/obj/Debug/net8.0/denemeXML.genruntimeconfig.cache
+/Users/nevdaterzioglu/Desktop/denemeXML/obj/Debug/net8.0/ref/denemeXML.dll
