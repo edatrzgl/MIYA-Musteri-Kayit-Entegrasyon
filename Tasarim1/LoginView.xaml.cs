@@ -13,6 +13,7 @@ using System.Net;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System.Xml.Linq;
+using System.Windows.Documents;
 using System.Xml.XPath;
 using System.Globalization;
 using System.Linq;
@@ -392,107 +393,116 @@ namespace WPF_LoginForm.View
         {
         }
 
-       private async void btnBilgileriAktar_Click(object sender, RoutedEventArgs e)
-{
-    string panServisLinki = txtLink.Text;
-    string panServisSifresi = txtSifre.Text;
-    string dist = txtDist.Text;
-    string firmaKodu = txtFirmaKodu.Text;
-    string calismaYili = txtCalismaYili.Text;
-    string UserName = txtKullaniciTipi.Text;
-
-    if (dataTable == null)
-    {
-        var mesaj = new Tasarim1.BildirimMesaji("Lütfen Bir Excel Dosyası Yükleyin!");
-        mesaj.Show();
-        return;
-    }
-
-    cancellationTokenSource = new CancellationTokenSource();
-    var cancellationToken = cancellationTokenSource.Token;
-
-    try
-    {
-        CheckInvalidCharactersInExcel();
-
-        if (!CheckRequiredColumns(dataTable))
+        private async void btnBilgileriAktar_Click(object sender, RoutedEventArgs e)
         {
-            return;
-        }
+            string panServisLinki = txtLink.Text;
+            string panServisSifresi = txtSifre.Text;
+            string dist = txtDist.Text;
+            string firmaKodu = txtFirmaKodu.Text;
+            string calismaYili = txtCalismaYili.Text;
+            string UserName = txtKullaniciTipi.Text;
 
-        // İşaretli CheckBox'lara sahip satırları al
-        var rowsToProcess = GetCheckedRows();
+            if (dataTable == null)
+            {
+                var mesaj = new Tasarim1.BildirimMesaji("Lütfen Bir Excel Dosyası Yükleyin!");
+                mesaj.Show();
+                return;
+            }
 
-        if (rowsToProcess.Count == 0)
-        {
-            var mesaj = new Tasarim1.BildirimMesaji("Lütfen Gönderilecek Satırları Seçin!");
-            mesaj.Show();
-            return;
-        }
+            cancellationTokenSource = new CancellationTokenSource();
+            var cancellationToken = cancellationTokenSource.Token;
 
-        foreach (var row in rowsToProcess)
-        {
             try
             {
-                // CancellationToken'ın iptal edilip edilmediğini kontrol edin
-                if (cancellationToken.IsCancellationRequested)
+                CheckInvalidCharactersInExcel();
+
+                if (!CheckRequiredColumns(dataTable))
                 {
-                    cancellationToken.ThrowIfCancellationRequested();
+                    return;
                 }
 
-                // Hücrelerin arka plan rengini temizleyin
-                ClearRowCellBackground(row);
+                // İşaretli CheckBox'lara sahip satırları al
+                var rowsToProcess = GetCheckedRows();
 
-                var customers = new List<CustomerIntegration> { MapRowToCustomer(row) };
-                string xmlData = ConvertCustomersToXML(customers, UserName, panServisSifresi, firmaKodu, calismaYili, dist);
-
-                var response = await panServisLinki
-                    .WithHeader("Authorization", $"Bearer {panServisSifresi}")
-                    .WithHeader("Content-Type", "text/xml")
-                    .PostStringAsync(xmlData);
-
-                string responseString = await response.GetStringAsync();
-                string errorMessage = ParseErrorMessageFromResponse(responseString);
-
-                if (!string.IsNullOrEmpty(errorMessage))
+                if (rowsToProcess.Count == 0)
                 {
-                    HighlightInvalidCells(row, Colors.LightCoral);
-                    AppendErrorMessage($"Hata: {errorMessage}");
+                    var mesaj = new Tasarim1.BildirimMesaji("Lütfen Gönderilecek Satırları Seçin!");
+                    mesaj.Show();
+                    return;
                 }
-                else
+
+                rtbErrorMessages.Document.Blocks.Clear(); // Clear previous error messages
+
+                foreach (var row in rowsToProcess)
                 {
-                    HighlightSuccessfulCells(row, Colors.LightGreen);
-                    AppendErrorMessage("Başarılı bir şekilde aktarım gerçekleşti");
+                    try
+                    {
+                        // CancellationToken'ın iptal edilip edilmediğini kontrol edin
+                        if (cancellationToken.IsCancellationRequested)
+                        {
+                            cancellationToken.ThrowIfCancellationRequested();
+                        }
+
+                        // Hücrelerin arka plan rengini temizleyin
+                        ClearRowCellBackground(row);
+
+                        var customers = new List<CustomerIntegration> { MapRowToCustomer(row) };
+                        string xmlData = ConvertCustomersToXML(customers, UserName, panServisSifresi, firmaKodu, calismaYili, dist);
+
+                        var response = await panServisLinki
+                            .WithHeader("Authorization", $"Bearer {panServisSifresi}")
+                            .WithHeader("Content-Type", "text/xml")
+                            .PostStringAsync(xmlData);
+
+                        string responseString = await response.GetStringAsync();
+                        string errorMessage = ParseErrorMessageFromResponse(responseString);
+
+                        // `MusteriKodu` değerini satırdan al
+                        string musteriKodu = row["MusteriKodu"].ToString();
+
+                        if (!string.IsNullOrEmpty(errorMessage))
+                        {
+                            HighlightInvalidCells(row, Colors.LightCoral);
+                            AppendErrorMessage($"Hata: {errorMessage}", musteriKodu);
+                        }
+                        else
+                        {
+                            HighlightSuccessfulCells(row, Colors.LightGreen);
+                            AppendErrorMessage("Başarılı bir şekilde aktarım gerçekleşti", musteriKodu);
+                        }
+                    }
+                    catch (FlurlHttpException ex)
+                    {
+                        string errorResponse = await ex.GetResponseStringAsync();
+                        string errorMessage = ParseErrorMessage(errorResponse);
+                        string musteriKodu = row["MusteriKodu"].ToString();
+                        HighlightInvalidCells(row, Colors.LightCoral);
+                        AppendErrorMessage($"Hata: {ex.Message}\nYanıt: {errorMessage}", musteriKodu);
+                    }
+                    catch (Exception ex)
+                    {
+                        string musteriKodu = row["MusteriKodu"].ToString();
+                        HighlightInvalidCells(row, Colors.LightCoral);
+                        AppendErrorMessage($"Hata: {ex.Message}", musteriKodu);
+                    }
+
+                    // Delay to prevent overwhelming the server
+                    await Task.Delay(500); // Adjust delay as necessary
                 }
             }
-            catch (FlurlHttpException ex)
+            catch (OperationCanceledException)
             {
-                string errorResponse = await ex.GetResponseStringAsync();
-                string errorMessage = ParseErrorMessage(errorResponse);
-                HighlightInvalidCells(row, Colors.LightCoral);
-                AppendErrorMessage($"Hata: {ex.Message}\nYanıt: {errorMessage}");
+                var mesaj = new Tasarim1.BildirimMesaji("Aktarım durduruldu.");
+                mesaj.Show();
             }
             catch (Exception ex)
             {
-                HighlightInvalidCells(row, Colors.LightCoral);
-                AppendErrorMessage($"Hata: {ex.Message}");
+                // Genel hataları işleme
+                AppendErrorMessage($"İstek gönderilirken bir hata oluştu: {ex.Message}", "");
             }
-
-            // Delay to prevent overwhelming the server
-            await Task.Delay(500); // Adjust delay as necessary
         }
-    }
-    catch (OperationCanceledException)
-    {
-        var mesaj = new Tasarim1.BildirimMesaji("Aktarım durduruldu.");
-        mesaj.Show();
-    }
-    catch (Exception ex)
-    {
-        // Genel hataları işleme
-        AppendErrorMessage($"İstek gönderilirken bir hata oluştu: {ex.Message}");
-    }
-}
+
+
 
 
         private void SetAllCheckBoxes(bool isChecked)
@@ -603,14 +613,15 @@ namespace WPF_LoginForm.View
             }
         }
 
-
-        private void AppendErrorMessage(string message)
+        private void AppendErrorMessage(string message, string MusteriKodu)
         {
-            rtbErrorMessages.Document.Blocks.Clear();
-            // Append the new message instead of clearing the previous ones
-            rtbErrorMessages.AppendText(message + "\n");
+            string fullMessage = $"MusteriKodu: {MusteriKodu} - {message}";
+            Paragraph paragraph = new Paragraph(new Run(fullMessage));
+            rtbErrorMessages.Document.Blocks.Add(paragraph);
             rtbErrorMessages.ScrollToEnd();
         }
+
+
 
 
         private string ParseErrorMessage(string response)
