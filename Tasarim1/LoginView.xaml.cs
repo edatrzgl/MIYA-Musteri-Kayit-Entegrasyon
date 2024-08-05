@@ -462,7 +462,7 @@ namespace WPF_LoginForm.View
                 else
                 {
                     HighlightSuccessfulCells(row, Colors.LightGreen);
-                    AppendErrorMessage($"Başarılı: {responseString}");
+                    AppendErrorMessage("Başarılı bir şekilde aktarım gerçekleşti");
                 }
             }
             catch (FlurlHttpException ex)
