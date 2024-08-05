@@ -50,6 +50,89 @@ namespace WPF_LoginForm.View
             InitializeComponent();
 
         }
+        private List<DataRow> GetCheckedRows()
+        {
+            var checkedRows = new List<DataRow>();
+
+            // DataGrid içerisindeki tüm satırlara erişin
+            foreach (var item in dataGrid.Items)
+            {
+                var row = item as DataRowView;
+                if (row != null)
+                {
+                    // CheckBox'ın işaretli olup olmadığını kontrol edin
+                    var cell = GetDataGridCell(dataGrid, row);
+                    if (cell != null)
+                    {
+                        var checkBox = GetVisualChild<CheckBox>(cell);
+                        if (checkBox != null && checkBox.IsChecked == true)
+                        {
+                            checkedRows.Add(row.Row);
+                        }
+                    }
+                }
+            }
+
+            return checkedRows;
+        }
+
+        // Helper method to get DataGridCell from DataGrid and DataRowView
+        private DataGridCell GetDataGridCell(DataGrid dataGrid, DataRowView row)
+        {
+            var container = dataGrid.ItemContainerGenerator.ContainerFromItem(row) as DataGridRow;
+            if (container != null)
+            {
+                var column = dataGrid.Columns.FirstOrDefault(c => c.Header.ToString() == "Seç");
+                if (column != null)
+                {
+                    var cellContent = column.GetCellContent(container);
+                    return GetDataGridCell(cellContent);
+                }
+            }
+            return null;
+        }
+
+        // Helper method to get VisualChild of a given type
+        private T GetVisualChild<T>(DependencyObject parent) where T : DependencyObject
+        {
+            if (parent == null) return null;
+
+            T foundChild = null;
+
+            int numVisuals = VisualTreeHelper.GetChildrenCount(parent);
+            for (int i = 0; i < numVisuals; i++)
+            {
+                var child = VisualTreeHelper.GetChild(parent, i);
+                if (child is T)
+                {
+                    foundChild = (T)child;
+                    break;
+                }
+                else
+                {
+                    foundChild = GetVisualChild<T>(child);
+                    if (foundChild != null)
+                    {
+                        break;
+                    }
+                }
+            }
+
+            return foundChild;
+        }
+
+        // Helper method to get DataGridCell from cell content
+        private DataGridCell GetDataGridCell(FrameworkElement cellContent)
+        {
+            var parent = VisualTreeHelper.GetParent(cellContent);
+
+            while (parent != null && !(parent is DataGridCell))
+            {
+                parent = VisualTreeHelper.GetParent(parent);
+            }
+
+            return parent as DataGridCell;
+        }
 
         //private void Label_MouseDown(object sender, MouseButtonEventArgs e)
         //{
@@ -309,110 +392,107 @@ namespace WPF_LoginForm.View
         {
         }
 
-        private async void btnBilgileriAktar_Click(object sender, RoutedEventArgs e)
+       private async void btnBilgileriAktar_Click(object sender, RoutedEventArgs e)
+{
+    string panServisLinki = txtLink.Text;
+    string panServisSifresi = txtSifre.Text;
+    string dist = txtDist.Text;
+    string firmaKodu = txtFirmaKodu.Text;
+    string calismaYili = txtCalismaYili.Text;
+    string UserName = txtKullaniciTipi.Text;
+
+    if (dataTable == null)
+    {
+        var mesaj = new Tasarim1.BildirimMesaji("Lütfen Bir Excel Dosyası Yükleyin!");
+        mesaj.Show();
+        return;
+    }
+
+    cancellationTokenSource = new CancellationTokenSource();
+    var cancellationToken = cancellationTokenSource.Token;
+
+    try
+    {
+        CheckInvalidCharactersInExcel();
+
+        if (!CheckRequiredColumns(dataTable))
         {
-            string panServisLinki = txtLink.Text;
-            string panServisSifresi = txtSifre.Text;
-            string dist = txtDist.Text;
-            string firmaKodu = txtFirmaKodu.Text;
-            string calismaYili = txtCalismaYili.Text;
-            string UserName = txtKullaniciTipi.Text;
+            return;
+        }
 
-            if (dataTable == null)
-            {
-                var mesaj = new Tasarim1.BildirimMesaji("Lütfen Bir Excel Dosyası Yükleyin!");
-                mesaj.Show();
-                return;
-            }
+        // İşaretli CheckBox'lara sahip satırları al
+        var rowsToProcess = GetCheckedRows();
 
-            cancellationTokenSource = new CancellationTokenSource();
-            var cancellationToken = cancellationTokenSource.Token;
+        if (rowsToProcess.Count == 0)
+        {
+            var mesaj = new Tasarim1.BildirimMesaji("Lütfen Gönderilecek Satırları Seçin!");
+            mesaj.Show();
+            return;
+        }
 
+        foreach (var row in rowsToProcess)
+        {
             try
             {
-                CheckInvalidCharactersInExcel();
-
-                if (!CheckRequiredColumns(dataTable))
+                // CancellationToken'ın iptal edilip edilmediğini kontrol edin
+                if (cancellationToken.IsCancellationRequested)
                 {
-                    return;
+                    cancellationToken.ThrowIfCancellationRequested();
                 }
 
-                bool selectAll = chkSelectAll.IsChecked ?? false;
+                // Hücrelerin arka plan rengini temizleyin
+                ClearRowCellBackground(row);
 
-                var rowsToProcess = selectAll
-                    ? dataTable.AsEnumerable().ToList()
-                    : dataGrid.SelectedItems.Cast<DataRowView>().Select(r => r.Row).ToList();
+                var customers = new List<CustomerIntegration> { MapRowToCustomer(row) };
+                string xmlData = ConvertCustomersToXML(customers, UserName, panServisSifresi, firmaKodu, calismaYili, dist);
 
-                if (rowsToProcess.Count == 0)
+                var response = await panServisLinki
+                    .WithHeader("Authorization", $"Bearer {panServisSifresi}")
+                    .WithHeader("Content-Type", "text/xml")
+                    .PostStringAsync(xmlData);
+
+                string responseString = await response.GetStringAsync();
+                string errorMessage = ParseErrorMessageFromResponse(responseString);
+
+                if (!string.IsNullOrEmpty(errorMessage))
                 {
-                    var mesaj = new Tasarim1.BildirimMesaji("Lütfen Gönderilecek Satırları Seçin!");
-                    mesaj.Show();
-                    return;
+                    HighlightInvalidCells(row, Colors.LightCoral);
+                    AppendErrorMessage($"Hata: {errorMessage}");
                 }
-
-                foreach (var row in rowsToProcess)
+                else
                 {
-                    try
-                    {
-                        // CancellationToken'ın iptal edilip edilmediğini kontrol edin
-                        if (cancellationToken.IsCancellationRequested)
-                        {
-                            cancellationToken.ThrowIfCancellationRequested();
-                        }
-
-                        // Hücrelerin arka plan rengini temizleyin
-                        ClearRowCellBackground(row);
-
-                        var customers = new List<CustomerIntegration> { MapRowToCustomer(row) };
-                        string xmlData = ConvertCustomersToXML(customers, UserName, panServisSifresi, firmaKodu, calismaYili, dist);
-
-                        var response = await panServisLinki
-                            .WithHeader("Authorization", $"Bearer {panServisSifresi}")
-                            .WithHeader("Content-Type", "text/xml")
-                            .PostStringAsync(xmlData);
-
-                        string responseString = await response.GetStringAsync();
-                        string errorMessage = ParseErrorMessageFromResponse(responseString);
-
-                        if (!string.IsNullOrEmpty(errorMessage))
-                        {
-                            HighlightInvalidCells(row, Colors.LightCoral);
-                            AppendErrorMessage($"Hata: {errorMessage}");
-                        }
-                        else
-                        {
-                            HighlightSuccessfulCells(row, Colors.LightGreen);
-                            AppendErrorMessage($"Başarılı: {responseString}");
-                        }
-                    }
-                    catch (FlurlHttpException ex)
-                    {
-                        string errorResponse = await ex.GetResponseStringAsync();
-                        string errorMessage = ParseErrorMessage(errorResponse);
-                        HighlightInvalidCells(row, Colors.LightCoral);
-                        AppendErrorMessage($"Hata: {ex.Message}\nYanıt: {errorMessage}");
-                    }
-                    catch (Exception ex)
-                    {
-                        HighlightInvalidCells(row, Colors.LightCoral);
-                        AppendErrorMessage($"Hata: {ex.Message}");
-                    }
-
-                    // Delay to prevent overwhelming the server
-                    await Task.Delay(500); // Adjust delay as necessary
+                    HighlightSuccessfulCells(row, Colors.LightGreen);
+                    AppendErrorMessage($"Başarılı: {responseString}");
                 }
             }
-            catch (OperationCanceledException)
+            catch (FlurlHttpException ex)
             {
-                var mesaj = new Tasarim1.BildirimMesaji("Aktarım durduruldu.");
-                mesaj.Show();
+                string errorResponse = await ex.GetResponseStringAsync();
+                string errorMessage = ParseErrorMessage(errorResponse);
+                HighlightInvalidCells(row, Colors.LightCoral);
+                AppendErrorMessage($"Hata: {ex.Message}\nYanıt: {errorMessage}");
             }
             catch (Exception ex)
             {
-                // Genel hataları işleme
-                AppendErrorMessage($"İstek gönderilirken bir hata oluştu: {ex.Message}");
+                HighlightInvalidCells(row, Colors.LightCoral);
+                AppendErrorMessage($"Hata: {ex.Message}");
             }
+
+            // Delay to prevent overwhelming the server
+            await Task.Delay(500); // Adjust delay as necessary
         }
+    }
+    catch (OperationCanceledException)
+    {
+        var mesaj = new Tasarim1.BildirimMesaji("Aktarım durduruldu.");
+        mesaj.Show();
+    }
+    catch (Exception ex)
+    {
+        // Genel hataları işleme
+        AppendErrorMessage($"İstek gönderilirken bir hata oluştu: {ex.Message}");
+    }
+}
 
 
         private void SetAllCheckBoxes(bool isChecked)
@@ -482,19 +562,7 @@ namespace WPF_LoginForm.View
             }
         }
         //datagridde satırı bulup seçer
-        private DataGridCell GetDataGridCell(FrameworkElement cellContent)
-        {
-            var parent = VisualTreeHelper.GetParent(cellContent);
-
-            while (parent != null && !(parent is DataGridCell))
-            {
-                parent = VisualTreeHelper.GetParent(parent);
-            }
-
-            return parent as DataGridCell;
-        }
-
-
+       
 
         //AKTARILAN HÜCRELERİ BOYAMA
         private void HighlightInvalidCells(DataRow row, Color color)
@@ -538,6 +606,7 @@ namespace WPF_LoginForm.View
 
         private void AppendErrorMessage(string message)
         {
+            rtbErrorMessages.Document.Blocks.Clear();
             // Append the new message instead of clearing the previous ones
             rtbErrorMessages.AppendText(message + "\n");
             rtbErrorMessages.ScrollToEnd();
