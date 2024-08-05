@@ -1,0 +1,54 @@
+﻿<Window x:Class="Tasarim1.BildirimMesaji"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="UYARI" Height="250" Width="400"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        AllowsTransparency="True">
+    <Grid>
+        <Border Background="BlueViolet" CornerRadius="20">
+            <Grid>
+                <Ellipse Width="60" Height="60" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="162,8,162,0">
+                    <Ellipse.Fill>
+                        <ImageBrush ImageSource="Images/bilgi.png"/>
+                    </Ellipse.Fill>
+                </Ellipse>
+                <TextBlock Name="MessageText" TextWrapping="Wrap" Margin="4,68,8,50.6" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Text="Bu bir uyarı mesajıdır." FontSize="18" Height="131" Width="388"/>
+                <Button x:Name="btnTamam"
+                    BorderThickness="0"
+                    Content="Tamam"
+                    Foreground="White"
+                    FontSize="12"
+                    FontFamily="Montserrat"
+                    Cursor="Hand"
+                    HorizontalAlignment="Left"
+                    Width="166"
+                    Grid.Column="0"
+                    Click="BtnTamam_Click" Margin="109,201,0,5.6">
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Background" Value="#462AD8"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#28AEED"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Width="150" Height="40"
+                                CornerRadius="20"
+                                Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
