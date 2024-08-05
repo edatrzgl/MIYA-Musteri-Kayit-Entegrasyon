@@ -146,9 +146,6 @@ namespace WPF_LoginForm.View
                     // Mesajı kapatın
                     mesaj.Close();
 
-                    // "Seç" sütununu ekleyin
-                    dataTable.Columns.Add(new DataColumn("Seç", typeof(bool)));
-
                     int sütunSayısı = çalışmaSayfası.UsedRange.Columns.Count;
                     for (int sütun = 1; sütun <= sütunSayısı; sütun++)
                     {
@@ -185,7 +182,6 @@ namespace WPF_LoginForm.View
 
                             yeniSatır[sütun - 1] = cellValue;
                         }
-                        yeniSatır["Seç"] = false; // Tüm satırların başlangıçta seçili olmadığını varsayalım
                         dataTable.Rows.Add(yeniSatır);
                     }
 
@@ -226,7 +222,6 @@ namespace WPF_LoginForm.View
                 }
             }
         }
-
         //kolondeğişkenlerini burada tuttuk
         private void FillEmptyCellsWithVariables(DataTable dt)
         {
@@ -342,18 +337,11 @@ namespace WPF_LoginForm.View
                     return;
                 }
 
-                // "Seç" sütununun varlığını kontrol edin
-                if (!dataTable.Columns.Contains("Seç"))
-                {
-                    var mesaj = new Tasarim1.BildirimMesaji("'Seç' sütunu tablosunda bulunamadı.");
-                    mesaj.Show();
-                    return;
-                }
+                bool selectAll = chkSelectAll.IsChecked ?? false;
 
-                // Sadece "Seç" sütunundaki seçili satırları alın
-                var rowsToProcess = dataTable.AsEnumerable()
-                    .Where(row => row.Field<bool>("Seç")) // "Seç" sütunundaki tikli satırları seç
-                    .ToList();
+                var rowsToProcess = selectAll
+                    ? dataTable.AsEnumerable().ToList()
+                    : dataGrid.SelectedItems.Cast<DataRowView>().Select(r => r.Row).ToList();
 
                 if (rowsToProcess.Count == 0)
                 {
@@ -361,9 +349,6 @@ namespace WPF_LoginForm.View
                     mesaj.Show();
                     return;
                 }
-
-                // Hata mesajlarını eklemeden önce RichTextBox'ı temizleyin
-                rtbErrorMessages.Document.Blocks.Clear();
 
                 foreach (var row in rowsToProcess)
                 {
@@ -428,7 +413,6 @@ namespace WPF_LoginForm.View
                 AppendErrorMessage($"İstek gönderilirken bir hata oluştu: {ex.Message}");
             }
         }
-
 
 
         private void SetAllCheckBoxes(bool isChecked)
@@ -680,7 +664,7 @@ namespace WPF_LoginForm.View
 
             // VergiTipi değerini dönüştürün
 
-          
+
             // OdemeTipi değerini dönüştürün
             Enum.TryParse(row["OdemeTipi"].ToString(), true, out OdemeTipiEnum odemeTipi);
             var returned = new CustomerIntegration
@@ -701,8 +685,8 @@ namespace WPF_LoginForm.View
                 OdemeTipi = Enum.TryParse(row["OdemeTipi"].ToString(), true, out OdemeTipiEnum odemeTipiEnum) ? (int?)odemeTipiEnum : (int?)null,
                 KisaAd = row["KisaAdi"].ToString(),
                 KdvMuaf = Enum.TryParse(vergiTip, true, out VergiTipiEnum vergiTipiEnum) ? (int?)vergiTipiEnum : (int?)null,
-                KoordinatX = (row["KoordinatX"] != DBNull.Value && row["KoordinatX"].ToString() !="") ? Convert.ToDecimal(row["KoordinatX"]) : (decimal?)null,
-                KoordinatY = (row["KoordinatY"] != DBNull.Value && row["KoordinatY"].ToString() != "")  ? Convert.ToDecimal(row["KoordinatY"]) : (decimal?)null,
+                KoordinatX = (row["KoordinatX"] != DBNull.Value && row["KoordinatX"].ToString() != "") ? Convert.ToDecimal(row["KoordinatX"]) : (decimal?)null,
+                KoordinatY = (row["KoordinatY"] != DBNull.Value && row["KoordinatY"].ToString() != "") ? Convert.ToDecimal(row["KoordinatY"]) : (decimal?)null,
                 VadeGun = row["VadeGunu"] != DBNull.Value ? Convert.ToInt32(row["VadeGunu"]) : (int?)null,
                 IskontoOran = row["Iskonto"] != DBNull.Value ? Convert.ToDecimal(row["Iskonto"]) : (decimal?)null
             };
