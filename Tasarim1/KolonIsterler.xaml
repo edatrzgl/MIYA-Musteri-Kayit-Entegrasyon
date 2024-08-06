@@ -147,7 +147,7 @@
                            FontFamily="Montserrat"
                            Margin="0,35,0,0" HorizontalAlignment="Left" Width="336"/>
                 <TextBox x:Name="txtDurum"
-                         Text=""
+                         Text="Aktif"
                          FontSize="13"
                          FontWeight="Medium"
                          FontFamily="Montserrat"
@@ -206,7 +206,7 @@
                            FontFamily="Montserrat"
                            Margin="0,15,0,0" HorizontalAlignment="Left" Width="335"/>
                 <TextBox x:Name="txtIlgiliKisi"
-                         Text=""
+                         Text="."
                              FontSize="13"
                              FontWeight="Medium"
                              FontFamily="Montserrat"
@@ -226,7 +226,7 @@
                            FontFamily="Montserrat"
                            Margin="0,15,0,0" HorizontalAlignment="Left" Width="335"/>
                 <TextBox x:Name="txtMüsteriGrubu"
-                         Text=""
+                         Text="99"
                              FontSize="13"
                              FontWeight="Medium"
                              FontFamily="Montserrat"
@@ -246,7 +246,7 @@
                            Margin="0,15,0,0" HorizontalAlignment="Left" Width="338"/>
                 <TextBox x:Name="txtMusteriEkgrup"
                          
-                         Text=""
+                         Text="99"
                              FontSize="13"
                              FontWeight="Medium"
                              FontFamily="Montserrat"
@@ -266,7 +266,7 @@
                     Margin="0,15,0,0" HorizontalAlignment="Left" Width="338"/>
                 <TextBox x:Name="txtOdemeTipi"
                          
-                    Text=""
+                    Text="Açık Hesap"
                     FontSize="13"
                     FontWeight="Medium"
                     FontFamily="Montserrat"
@@ -286,7 +286,7 @@
                     Margin="0,15,0,0" HorizontalAlignment="Left" Width="338"/>
                 <TextBox x:Name="txtKisaAdi"
                          
-                    Text=""
+                    Text="."
                     FontSize="13"
                     FontWeight="Medium"
                     FontFamily="Montserrat"

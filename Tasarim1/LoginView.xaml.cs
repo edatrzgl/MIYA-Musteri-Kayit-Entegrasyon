@@ -22,6 +22,7 @@ using System.Windows.Media;
 using System.Text;
 using WPF_LoginForm;
 using Tasarim1;
+using System.Reflection;
 
 namespace WPF_LoginForm.View
 {
@@ -31,6 +32,7 @@ namespace WPF_LoginForm.View
       
 
         private KolonIsterler IsterlerModel;
+        public string VersionNumber { get; set; }
 
 
 
@@ -44,6 +46,7 @@ namespace WPF_LoginForm.View
         public LoginView()
         {
             InitializeComponent();
+            VersionRun.Text = GetVersionNumber();//version numarası yazıldı
 
         }
         public LoginView(KolonIsterler kolonIsterler)
@@ -75,6 +78,10 @@ namespace WPF_LoginForm.View
             }
 
             return checkedRows;
+        }
+        public string GetVersionNumber()//version numarasını aldık 
+        {
+            return Assembly.GetExecutingAssembly().GetName().Version.ToString();
         }
 
         // Helper method to get DataGridCell from DataGrid and DataRowView
@@ -134,20 +141,6 @@ namespace WPF_LoginForm.View
 
             return parent as DataGridCell;
         }
-
-        
-       
- 
-        //    //try
-        //    //{
-        //    //    KolonIsterler newWindow = new KolonIsterler();
-        //    //    newWindow.Show();
-        //    //}
-        //    //catch (Exception hata)
-        //    //{
-        //    //    var mesaj = new Tasarim1.BildirimMesaji("Aktif Duruma Getirilmemiştir..!");
-        //    //    mesaj.Show();
-
         
         private void btnKolonSabitleriniDegistir_Click(object sender, RoutedEventArgs e)
         {

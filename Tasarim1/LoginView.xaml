@@ -52,14 +52,16 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Text="Miya Yazılım"
-                           Foreground="DarkGray"
-                           FontSize="10"
-                           FontFamily="Montserrat"
-                           VerticalAlignment="Center"
-                           Margin="10,11,157.933,8"
-                           Grid.ColumnSpan="3"/>
-
+                <TextBlock Foreground="White"
+                   FontSize="10"
+                   FontFamily="Montserrat"
+                   VerticalAlignment="Center"
+                   Margin="18,10,149.2,8.4"
+                   Grid.ColumnSpan="3">
+                <Run Text="Miya Yazılım"/>
+                <Run Text=" - v"/>
+                <Run x:Name="VersionRun"/>
+                </TextBlock>
                 <Button x:Name="btnMinimize"
                         BorderThickness="0"
                         Content="-"
