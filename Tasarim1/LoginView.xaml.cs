@@ -554,7 +554,7 @@ namespace WPF_LoginForm.View
                     }
 
                     // Delay to prevent overwhelming the server
-                    await Task.Delay(500); // Adjust delay as necessary
+                    await Task.Delay(1000); // Adjust delay as necessary
                 }
             }
             catch (OperationCanceledException)
