@@ -1,5 +1,7 @@
-﻿using System.Windows;
-using System.Windows.Navigation;
+﻿using System.Threading.Tasks;
+using System.Windows;
+using Tasarim1;
+using WPF_LoginForm; // KolonIsterlerData sınıfını içerir
 
 namespace WPF_LoginForm.View
 {
@@ -8,7 +10,6 @@ namespace WPF_LoginForm.View
         public KolonIsterler()
         {
             InitializeComponent();
-            MainFrame.Navigate(new KolonIsterler());
         }
 
         private void Window_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -29,22 +30,22 @@ namespace WPF_LoginForm.View
             this.WindowState = WindowState.Minimized;
         }
 
-        private void btnKaydet_Click(object sender, RoutedEventArgs e)
+        private async void btnKaydet_Click(object sender, RoutedEventArgs e)
         {
-            var loginView = new LoginView
-            {
-                Durum = txtDurum.Text,
-                MusteriKodu = txtMusteriKodu.Text,
-                Unvan = txtUnvan.Text,
-                IlgiliKisi = txtIlgiliKisi.Text,
-                MusteriGrubu = txtMüsteriGrubu.Text,
-                MusteriEkGrubu = txtMusteriEkgrup.Text,
-                OdemeTipi = txtOdemeTipi.Text,
-                KisaAdi = txtKisaAdi.Text,
-                VergiTipi = txtVergiTipi.Text
-            };
+            KolonIsterlerData.Durum = txtDurum.Text;
+            KolonIsterlerData.MusteriKodu = txtMusteriKodu.Text;
+            KolonIsterlerData.Unvan = txtUnvan.Text;
+            KolonIsterlerData.IlgiliKisi = txtIlgiliKisi.Text;
+            KolonIsterlerData.MusteriGrubu = txtMüsteriGrubu.Text;
+            KolonIsterlerData.MusteriEkGrubu = txtMusteriEkgrup.Text;
+            KolonIsterlerData.OdemeTipi = txtOdemeTipi.Text;
+            KolonIsterlerData.KisaAdi = txtKisaAdi.Text;
+            KolonIsterlerData.VergiTipi = txtVergiTipi.Text;
 
-            loginView.Show();
+            var mesaj = new Tasarim1.BildirimMesaji("Bilgiler kaydediliyor..!");
+            mesaj.Show();
+            await Task.Delay(500);
+            this.Close();
         }
     }
 }

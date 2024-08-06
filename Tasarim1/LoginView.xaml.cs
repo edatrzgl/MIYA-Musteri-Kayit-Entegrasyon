@@ -20,22 +20,17 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Media;
 using System.Text;
+using WPF_LoginForm;
+using Tasarim1;
 
 namespace WPF_LoginForm.View
 {
 
     public partial class LoginView : Window
     {
-        public string Durum { get; set; }
-        public string MusteriKodu { get; set; }
-        public string Unvan { get; set; }
-        public string IlgiliKisi { get; set; }
-        public string MusteriGrubu { get; set; }
-        public string MusteriEkGrubu { get; set; }
-        public string OdemeTipi { get; set; }
-        public string KisaAdi { get; set; }
-        public string VergiTipi { get; set; }
+      
 
+        private KolonIsterler IsterlerModel;
 
 
 
@@ -50,6 +45,11 @@ namespace WPF_LoginForm.View
         {
             InitializeComponent();
 
+        }
+        public LoginView(KolonIsterler kolonIsterler)
+        {
+            InitializeComponent();
+            IsterlerModel = kolonIsterler;
         }
         private List<DataRow> GetCheckedRows()
         {
@@ -135,11 +135,45 @@ namespace WPF_LoginForm.View
             return parent as DataGridCell;
         }
 
-        //private void Label_MouseDown(object sender, MouseButtonEventArgs e)
-        //{
-        //    KolonIsterler newWindow = new KolonIsterler();
-        //    newWindow.Show();
-        //}
+        
+       
+ 
+        //    //try
+        //    //{
+        //    //    KolonIsterler newWindow = new KolonIsterler();
+        //    //    newWindow.Show();
+        //    //}
+        //    //catch (Exception hata)
+        //    //{
+        //    //    var mesaj = new Tasarim1.BildirimMesaji("Aktif Duruma Getirilmemiştir..!");
+        //    //    mesaj.Show();
+
+        
+        private void btnKolonSabitleriniDegistir_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                // KolonIsterler penceresinin zaten açık olup olmadığını kontrol et
+                var existingWindow = Application.Current.Windows.OfType<KolonIsterler>().FirstOrDefault();
+                if (existingWindow != null)
+                {
+                    // Pencere zaten açık, hata mesajı göster
+                    var mesaj = new Tasarim1.BildirimMesaji("Pencere zaten açık.");
+                    mesaj.Show();
+                }
+                else
+                {
+                    // Pencere açık değil, yeni bir pencere oluştur ve göster
+                    KolonIsterler ekran = new KolonIsterler();
+                    ekran.Show();
+                }
+            }
+            catch (Exception ex)
+            {
+                var mesaj = new Tasarim1.BildirimMesaji($"Bilinmeyen bir hata oluştu: {ex.Message}");
+                mesaj.Show();
+            }
+        }
 
         // Tüm satırları seç
         private void chkSelectAll_Checked(object sender, RoutedEventArgs e)
@@ -269,8 +303,46 @@ namespace WPF_LoginForm.View
                         dataTable.Rows.Add(yeniSatır);
                     }
 
-                    // Boş hücreleri doldurmak için değişken değerlerini kullanma
-                    FillEmptyCellsWithVariables(dataTable);
+                    // Fill empty cells with values from KolonIsterlerData
+                    foreach (DataRow row in dataTable.Rows)
+                    {
+                        foreach (DataColumn column in dataTable.Columns)
+                        {
+                            if (string.IsNullOrWhiteSpace(row[column].ToString()))
+                            {
+                                switch (column.ColumnName)
+                                {
+                                    case "Durum":
+                                        row[column] = KolonIsterlerData.Durum;
+                                        break;
+                                    case "MusteriKodu":
+                                        row[column] = KolonIsterlerData.MusteriKodu;
+                                        break;
+                                    case "Unvan":
+                                        row[column] = KolonIsterlerData.Unvan;
+                                        break;
+                                    case "IlgiliKisi":
+                                        row[column] = KolonIsterlerData.IlgiliKisi;
+                                        break;
+                                    case "MusteriGrubu":
+                                        row[column] = KolonIsterlerData.MusteriGrubu;
+                                        break;
+                                    case "MusteriEkGrubu":
+                                        row[column] = KolonIsterlerData.MusteriEkGrubu;
+                                        break;
+                                    case "OdemeTipi":
+                                        row[column] = KolonIsterlerData.OdemeTipi;
+                                        break;
+                                    case "KisaAdi":
+                                        row[column] = KolonIsterlerData.KisaAdi;
+                                        break;
+                                    case "VergiTipi":
+                                        row[column] = KolonIsterlerData.VergiTipi;
+                                        break;
+                                }
+                            }
+                        }
+                    }
 
                     çalışmaKitabı.Save();
                     dataGrid.ItemsSource = dataTable.DefaultView;
@@ -306,49 +378,51 @@ namespace WPF_LoginForm.View
                 }
             }
         }
-        //kolondeğişkenlerini burada tuttuk
-        private void FillEmptyCellsWithVariables(DataTable dt)
+
+
+        private void FillEmptyCellsWithVariables(DataTable dataTable)
         {
-            foreach (DataRow row in dt.Rows)
+            foreach (DataRow row in dataTable.Rows)
             {
-                foreach (DataColumn column in dt.Columns)
+                foreach (DataColumn column in dataTable.Columns)
                 {
-                    if (row[column] == DBNull.Value || string.IsNullOrWhiteSpace(row[column].ToString()))
+                    if (string.IsNullOrEmpty(row[column].ToString()))
                     {
                         switch (column.ColumnName)
                         {
                             case "Durum":
-                                row[column] = this.Durum;
+                                row[column] = KolonIsterlerData.Durum;
                                 break;
                             case "MusteriKodu":
-                                row[column] = this.MusteriKodu;
+                                row[column] = KolonIsterlerData.MusteriKodu;
                                 break;
                             case "Unvan":
-                                row[column] = this.Unvan;
+                                row[column] = KolonIsterlerData.Unvan;
                                 break;
                             case "IlgiliKisi":
-                                row[column] = this.IlgiliKisi;
+                                row[column] = KolonIsterlerData.IlgiliKisi;
                                 break;
                             case "MusteriGrubu":
-                                row[column] = this.MusteriGrubu;
+                                row[column] = KolonIsterlerData.MusteriGrubu;
                                 break;
                             case "MusteriEkGrubu":
-                                row[column] = this.MusteriEkGrubu;
+                                row[column] = KolonIsterlerData.MusteriEkGrubu;
                                 break;
                             case "OdemeTipi":
-                                row[column] = this.OdemeTipi;
+                                row[column] = KolonIsterlerData.OdemeTipi;
                                 break;
                             case "KisaAdi":
-                                row[column] = this.KisaAdi;
+                                row[column] = KolonIsterlerData.KisaAdi;
                                 break;
                             case "VergiTipi":
-                                row[column] = this.VergiTipi;
+                                row[column] = KolonIsterlerData.VergiTipi;
                                 break;
                         }
                     }
                 }
             }
         }
+
 
         // Boşlukları normalleştiren yardımcı yöntem
         private string NormalizeSpaces(string input)

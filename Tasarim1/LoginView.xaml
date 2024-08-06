@@ -264,7 +264,7 @@
                              Padding="20,0,0,0" HorizontalAlignment="Left" Width="330" Height="30"
                          Background="BlueViolet"/>
 
-                <Grid Margin="0,50,0,0">
+                <Grid Margin="0,50,0,0" HorizontalAlignment="Left" Width="343">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
@@ -279,8 +279,7 @@
                             Cursor="Hand"
                             HorizontalAlignment="Left"
                             Width="166"
-                            Grid.Column="0"
-                            Click="btnExcelYükle_Click">
+                            Click="btnExcelYükle_Click" Margin="-3,-46,0,45.4" Grid.ColumnSpan="2">
                         <Button.Style>
                             <Style TargetType="{x:Type Button}">
                                 <Setter Property="Background" Value="#462AD8"/>
@@ -314,8 +313,8 @@
                             Width="160"
                             Height="44"
                             Grid.Column="1"
-                            Margin="10,0,0,0"
-                            Click="btnBilgileriAktar_Click">
+                            Margin="169.2,-46,-158,46.4"
+                            Click="btnBilgileriAktar_Click" VerticalAlignment="Bottom">
                         <Button.Style>
                             <Style TargetType="{x:Type Button}">
                                 <Setter Property="Background" Value="#462AD8"/>
@@ -333,6 +332,39 @@
                                         Background="{TemplateBinding Background}">
                                     <ContentPresenter VerticalAlignment="Center"
                                                       HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <Button x:Name="btn_KolonSabitleri"
+                        BorderThickness="0"
+                        Content="Kolon Sabitlerini Değiştir"
+                        Foreground="White"
+                        FontSize="12"
+                        FontFamily="Montserrat"
+                        Cursor="Hand"
+                        HorizontalAlignment="Left"
+                        Width="160"
+                        Height="44"
+                        Margin="0.2,-1,0,1.4"
+                        Click="btnKolonSabitleriniDegistir_Click" Grid.Column="1">
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Background" Value="#462AD8"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#28AEED"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Width="150" Height="40"
+                                    CornerRadius="20"
+                                    Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"/>
                                 </Border>
                             </ControlTemplate>
                         </Button.Template>
