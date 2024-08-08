@@ -1,7 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
 using System.Windows;
 using Tasarim1;
-using WPF_LoginForm; // KolonIsterlerData sınıfını içerir
 
 namespace WPF_LoginForm.View
 {
@@ -32,20 +34,45 @@ namespace WPF_LoginForm.View
 
         private async void btnKaydet_Click(object sender, RoutedEventArgs e)
         {
-            KolonIsterlerData.Durum = txtDurum.Text;
-            KolonIsterlerData.MusteriKodu = txtMusteriKodu.Text;
-            KolonIsterlerData.Unvan = txtUnvan.Text;
-            KolonIsterlerData.IlgiliKisi = txtIlgiliKisi.Text;
-            KolonIsterlerData.MusteriGrubu = txtMüsteriGrubu.Text;
-            KolonIsterlerData.MusteriEkGrubu = txtMusteriEkgrup.Text;
-            KolonIsterlerData.OdemeTipi = txtOdemeTipi.Text;
-            KolonIsterlerData.KisaAdi = txtKisaAdi.Text;
-            KolonIsterlerData.VergiTipi = txtVergiTipi.Text;
+            var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "KolonIsterlerData.txt");
+            var lines = new List<string>
+    {
+        $"Durum={txtDurum.Text}",
+        //$"MusteriKodu={txtMusteriKodu.Text}",
+        //$"Unvan={txtUnvan.Text}",
+        //$"IlgiliKisi={txtIlgiliKisi.Text}",
+        $"MusteriGrubu={txtMüsteriGrubu.Text}",
+        $"MusteriEkGrubu={txtMusteriEkgrup.Text}",
+        $"OdemeTipi={txtOdemeTipi.Text}",
+        $"KisaAdi={txtKisaAdi.Text}",
+        //$"VergiTipi={txtVergiTipi.Text}"
+    };
 
-            var mesaj = new Tasarim1.BildirimMesaji("Bilgiler kaydediliyor..!");
-            mesaj.Show();
-            await Task.Delay(500);
-            this.Close();
+            try
+            {
+                // Write data to the text file
+                File.WriteAllLines(filePath, lines);
+
+                // Log or debug the file path to ensure it's correct
+                //MessageBox.Show($"Dosya başarıyla kaydedildi: {filePath}", "Bilgi", MessageBoxButton.OK, MessageBoxImage.Information);
+                var mesaj1 = new Tasarim1.BildirimMesaji($"Dosya başarıyla kaydedildi: {filePath}");
+                mesaj1.Show();
+
+
+
+                var mesaj = new Tasarim1.BildirimMesaji("Bilgiler kaydediliyor..!");
+                mesaj.Show();
+                await Task.Delay(500); // Wait for a short period to simulate saving
+                mesaj.Close();
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                // MessageBox.Show($"Bir hata oluştu: {ex.Message}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
+                var mesaj = new Tasarim1.BildirimMesaji($"Bir hata oluştu: {ex.Message}");
+                mesaj.Show();
+            }
         }
+
     }
 }

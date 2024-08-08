@@ -49,11 +49,6 @@ namespace WPF_LoginForm.View
             VersionRun.Text = GetVersionNumber();//version numarası yazıldı
 
         }
-        public LoginView(KolonIsterler kolonIsterler)
-        {
-            InitializeComponent();
-            IsterlerModel = kolonIsterler;
-        }
         private List<DataRow> GetCheckedRows()
         {
             var checkedRows = new List<DataRow>();
@@ -243,6 +238,11 @@ namespace WPF_LoginForm.View
 
                 try
                 {
+                    // Read values from text file
+                    var kolonIsterlerData = File.ReadAllLines("KolonIsterlerData.txt")
+                        .Select(line => line.Split('='))
+                        .ToDictionary(parts => parts[0], parts => parts.Length > 1 ? parts[1] : string.Empty);
+
                     excelUygulama = new Excel.Application();
                     çalışmaKitabı = excelUygulama.Workbooks.Open(dosyaAdı);
                     çalışmaSayfası = çalışmaKitabı.Worksheets[1];
@@ -253,8 +253,6 @@ namespace WPF_LoginForm.View
                     var mesaj = new Tasarim1.BildirimMesaji("Excel Dosyası Aktarılıyor Bekleyin!");
                     mesaj.Show();
                     await Task.Delay(3000);
-
-                    // Mesajı kapatın
                     mesaj.Close();
 
                     int sütunSayısı = çalışmaSayfası.UsedRange.Columns.Count;
@@ -303,35 +301,9 @@ namespace WPF_LoginForm.View
                         {
                             if (string.IsNullOrWhiteSpace(row[column].ToString()))
                             {
-                                switch (column.ColumnName)
+                                if (kolonIsterlerData.TryGetValue(column.ColumnName, out var value))
                                 {
-                                    case "Durum":
-                                        row[column] = KolonIsterlerData.Durum;
-                                        break;
-                                    case "MusteriKodu":
-                                        row[column] = KolonIsterlerData.MusteriKodu;
-                                        break;
-                                    case "Unvan":
-                                        row[column] = KolonIsterlerData.Unvan;
-                                        break;
-                                    case "IlgiliKisi":
-                                        row[column] = KolonIsterlerData.IlgiliKisi;
-                                        break;
-                                    case "MusteriGrubu":
-                                        row[column] = KolonIsterlerData.MusteriGrubu;
-                                        break;
-                                    case "MusteriEkGrubu":
-                                        row[column] = KolonIsterlerData.MusteriEkGrubu;
-                                        break;
-                                    case "OdemeTipi":
-                                        row[column] = KolonIsterlerData.OdemeTipi;
-                                        break;
-                                    case "KisaAdi":
-                                        row[column] = KolonIsterlerData.KisaAdi;
-                                        break;
-                                    case "VergiTipi":
-                                        row[column] = KolonIsterlerData.VergiTipi;
-                                        break;
+                                    row[column] = value;
                                 }
                             }
                         }
@@ -373,48 +345,50 @@ namespace WPF_LoginForm.View
         }
 
 
-        private void FillEmptyCellsWithVariables(DataTable dataTable)
-        {
-            foreach (DataRow row in dataTable.Rows)
-            {
-                foreach (DataColumn column in dataTable.Columns)
-                {
-                    if (string.IsNullOrEmpty(row[column].ToString()))
-                    {
-                        switch (column.ColumnName)
-                        {
-                            case "Durum":
-                                row[column] = KolonIsterlerData.Durum;
-                                break;
-                            case "MusteriKodu":
-                                row[column] = KolonIsterlerData.MusteriKodu;
-                                break;
-                            case "Unvan":
-                                row[column] = KolonIsterlerData.Unvan;
-                                break;
-                            case "IlgiliKisi":
-                                row[column] = KolonIsterlerData.IlgiliKisi;
-                                break;
-                            case "MusteriGrubu":
-                                row[column] = KolonIsterlerData.MusteriGrubu;
-                                break;
-                            case "MusteriEkGrubu":
-                                row[column] = KolonIsterlerData.MusteriEkGrubu;
-                                break;
-                            case "OdemeTipi":
-                                row[column] = KolonIsterlerData.OdemeTipi;
-                                break;
-                            case "KisaAdi":
-                                row[column] = KolonIsterlerData.KisaAdi;
-                                break;
-                            case "VergiTipi":
-                                row[column] = KolonIsterlerData.VergiTipi;
-                                break;
-                        }
-                    }
-                }
-            }
-        }
+
+
+        //private void FillEmptyCellsWithVariables(DataTable dataTable)
+        //{
+        //    foreach (DataRow row in dataTable.Rows)
+        //    {
+        //        foreach (DataColumn column in dataTable.Columns)
+        //        {
+        //            if (string.IsNullOrEmpty(row[column].ToString()))
+        //            {
+        //                switch (column.ColumnName)
+        //                {
+        //                    case "Durum":
+        //                        row[column] = KolonIsterlerData.Durum;
+        //                        break;
+        //                    case "MusteriKodu":
+        //                        row[column] = KolonIsterlerData.MusteriKodu;
+        //                        break;
+        //                    case "Unvan":
+        //                        row[column] = KolonIsterlerData.Unvan;
+        //                        break;
+        //                    case "IlgiliKisi":
+        //                        row[column] = KolonIsterlerData.IlgiliKisi;
+        //                        break;
+        //                    case "MusteriGrubu":
+        //                        row[column] = KolonIsterlerData.MusteriGrubu;
+        //                        break;
+        //                    case "MusteriEkGrubu":
+        //                        row[column] = KolonIsterlerData.MusteriEkGrubu;
+        //                        break;
+        //                    case "OdemeTipi":
+        //                        row[column] = KolonIsterlerData.OdemeTipi;
+        //                        break;
+        //                    case "KisaAdi":
+        //                        row[column] = KolonIsterlerData.KisaAdi;
+        //                        break;
+        //                    case "VergiTipi":
+        //                        row[column] = KolonIsterlerData.VergiTipi;
+        //                        break;
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
 
 
         // Boşlukları normalleştiren yardımcı yöntem

@@ -147,7 +147,7 @@
                            FontFamily="Montserrat"
                            Margin="0,35,0,0" HorizontalAlignment="Left" Width="336"/>
                 <TextBox x:Name="txtDurum"
-                         Text="Aktif"
+                         Text=""
                          FontSize="13"
                          FontWeight="Medium"
                          FontFamily="Montserrat"
@@ -160,65 +160,6 @@
                          Padding="20,0,0,0" Height="30"
                          Background="BlueViolet" HorizontalAlignment="Left" Width="330"/>
 
-                <TextBlock Text="Müşteri Kodu"
-                           Foreground="DarkGray"
-                           FontSize="12"
-                           FontWeight="Medium"
-                           FontFamily="Montserrat"
-                           Margin="0,15,0,0" HorizontalAlignment="Left" Width="335"/>
-                <TextBox x:Name="txtMusteriKodu"
-                                Text=""
-                             FontSize="13"
-                             FontWeight="Medium"
-                             FontFamily="Montserrat"
-                             Foreground="White"
-                             CaretBrush="LightGray"
-                             BorderBrush="DarkGray"
-                             BorderThickness="0,0,0,2"
-                             VerticalContentAlignment="Center"
-                             Margin="8,5,0,0"
-                             Padding="20,0,0,0" Height="30"
-                         Background="BlueViolet" HorizontalAlignment="Left" Width="330"/>
-                <TextBlock Text="Ünvan"
-                    Foreground="DarkGray"
-                    FontSize="12"
-                    FontWeight="Medium"
-                    FontFamily="Montserrat"
-                    Margin="0,15,0,0" HorizontalAlignment="Left" Width="335"/>
-                <TextBox x:Name="txtUnvan"
-                    Text=""
-                    FontSize="13"
-                    FontWeight="Medium"
-                    FontFamily="Montserrat"
-                    Foreground="White"
-                    CaretBrush="LightGray"
-                    BorderBrush="DarkGray"
-                    BorderThickness="0,0,0,2"
-                    VerticalContentAlignment="Center"
-                    Margin="8,5,0,0"
-                    Padding="20,0,0,0" HorizontalAlignment="Left" Width="330" Height="30"
-                         Background="BlueViolet"/>
-
-                <TextBlock Text="İlgili Kişi"
-                           Foreground="DarkGray"
-                           FontSize="12"
-                           FontWeight="Medium"
-                           FontFamily="Montserrat"
-                           Margin="0,15,0,0" HorizontalAlignment="Left" Width="335"/>
-                <TextBox x:Name="txtIlgiliKisi"
-                         Text="."
-                             FontSize="13"
-                             FontWeight="Medium"
-                             FontFamily="Montserrat"
-                             Foreground="White"
-                             CaretBrush="LightGray"
-                             BorderBrush="DarkGray"
-                             BorderThickness="0,0,0,2"
-                             VerticalContentAlignment="Center"
-                             Margin="8,5,0,0"
-                         Background="BlueViolet"
-                             Padding="20,0,0,0" Height="30" HorizontalAlignment="Left" Width="330"/>
-
                 <TextBlock Text="Müşteri Grubu"
                            Foreground="DarkGray"
                            FontSize="12"
@@ -226,7 +167,7 @@
                            FontFamily="Montserrat"
                            Margin="0,15,0,0" HorizontalAlignment="Left" Width="335"/>
                 <TextBox x:Name="txtMüsteriGrubu"
-                         Text="99"
+                         Text=""
                              FontSize="13"
                              FontWeight="Medium"
                              FontFamily="Montserrat"
@@ -246,7 +187,7 @@
                            Margin="0,15,0,0" HorizontalAlignment="Left" Width="338"/>
                 <TextBox x:Name="txtMusteriEkgrup"
                          
-                         Text="99"
+                         Text=""
                              FontSize="13"
                              FontWeight="Medium"
                              FontFamily="Montserrat"
@@ -266,7 +207,7 @@
                     Margin="0,15,0,0" HorizontalAlignment="Left" Width="338"/>
                 <TextBox x:Name="txtOdemeTipi"
                          
-                    Text="Açık Hesap"
+                    Text=""
                     FontSize="13"
                     FontWeight="Medium"
                     FontFamily="Montserrat"
@@ -285,26 +226,6 @@
                     FontFamily="Montserrat"
                     Margin="0,15,0,0" HorizontalAlignment="Left" Width="338"/>
                 <TextBox x:Name="txtKisaAdi"
-                         
-                    Text="."
-                    FontSize="13"
-                    FontWeight="Medium"
-                    FontFamily="Montserrat"
-                    Foreground="White"
-                    CaretBrush="LightGray"
-                    BorderBrush="DarkGray"
-                    BorderThickness="0,0,0,2"
-                    VerticalContentAlignment="Center"
-                    Margin="8,5,0,0"
-                    Padding="20,0,0,0" HorizontalAlignment="Left" Width="330" Height="30"
-                    Background="BlueViolet"/>
-                <TextBlock Text="Vergi Tipi"
-                    Foreground="DarkGray"
-                    FontSize="12"
-                    FontWeight="Medium"
-                    FontFamily="Montserrat"
-                    Margin="0,15,0,0" HorizontalAlignment="Left" Width="338"/>
-                <TextBox x:Name="txtVergiTipi"
                          
                     Text=""
                     FontSize="13"
