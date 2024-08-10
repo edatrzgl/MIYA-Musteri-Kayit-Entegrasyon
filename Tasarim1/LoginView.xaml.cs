@@ -49,6 +49,8 @@ namespace WPF_LoginForm.View
             VersionRun.Text = GetVersionNumber();//version numarası yazıldı
 
         }
+
+
         private List<DataRow> GetCheckedRows()
         {
             var checkedRows = new List<DataRow>();
