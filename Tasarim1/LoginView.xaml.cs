@@ -23,6 +23,7 @@ using System.Text;
 using WPF_LoginForm;
 using Tasarim1;
 using System.Reflection;
+using System.Windows.Controls.Primitives;
 
 namespace WPF_LoginForm.View
 {
@@ -315,6 +316,17 @@ namespace WPF_LoginForm.View
                     dataGrid.ItemsSource = dataTable.DefaultView;
                     dataGrid.Items.Refresh();
 
+                    // Apply styles to DataGrid columns
+                    foreach (var column in dataGrid.Columns)
+                    {
+                        if (column.Header.ToString() == "DURUM" || column.Header.ToString() == "MusteriKodu" || column.Header.ToString()=="Unvan" || column.Header.ToString() == "IlgiliKisi" || column.Header.ToString() == "MusteriGrubu" || column.Header.ToString() == "MusteriEkGrubu" || column.Header.ToString() == "OdemeTipi" || column.Header.ToString() == "KisaAdi" || column.Header.ToString() == "VergiTipi")
+                        {
+                            var headerStyle = new Style(typeof(DataGridColumnHeader));
+                            headerStyle.Setters.Add(new Setter(DataGridColumnHeader.ForegroundProperty, Brushes.Red));
+                            column.HeaderStyle = headerStyle;
+                        }
+                    }
+
                     var mesaj1 = new Tasarim1.BildirimMesaji("Excel Dosyası Başarıyla Yüklendi!");
                     mesaj1.Show();
                 }
@@ -345,6 +357,7 @@ namespace WPF_LoginForm.View
                 }
             }
         }
+
 
 
 

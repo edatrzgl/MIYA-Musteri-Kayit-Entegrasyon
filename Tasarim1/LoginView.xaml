@@ -389,7 +389,7 @@
                 </RichTextBox>
             </StackPanel>
 
-            <DataGrid x:Name="dataGrid"
+           <DataGrid x:Name="dataGrid"
           HorizontalAlignment="Stretch"
           VerticalAlignment="Top"
           Margin="368,12,10,0"
@@ -399,21 +399,33 @@
           Grid.RowSpan="2"
           SelectionMode="Single"     
           SelectionUnit="FullRow"
-          
           EnableRowVirtualization="False"
-          EnableColumnVirtualization="False">
+          EnableColumnVirtualization="False"
+          AutoGenerateColumns="True">
 
-                <DataGrid.Columns>
-                    <DataGridTemplateColumn Header="Seç">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <CheckBox IsChecked="{Binding Path=Seç, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                </DataGrid.Columns>
+    <DataGrid.Resources>
+        <!-- DataGridColumnHeader stil tanımı -->
+        <Style TargetType="DataGridColumnHeader">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Column.ExtendedProperties[Highlight]}" Value="True">
+                    <Setter Property="Foreground" Value="Red"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </DataGrid.Resources>
 
-            </DataGrid>
+    <DataGrid.Columns>
+        <!-- Seçim sütunu -->
+        <DataGridTemplateColumn Header="Seç">
+            <DataGridTemplateColumn.CellTemplate>
+                <DataTemplate>
+                    <CheckBox IsChecked="{Binding Path=Seç, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </DataTemplate>
+            </DataGridTemplateColumn.CellTemplate>
+        </DataGridTemplateColumn>
+    </DataGrid.Columns>
+</DataGrid>
+
 
         </Grid>
     </Border>
