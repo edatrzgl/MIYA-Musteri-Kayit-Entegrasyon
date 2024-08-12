@@ -1,36 +1,32 @@
-﻿using System;
+﻿using Flurl.Http;
+using Microsoft.Win32;
+using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
-using Microsoft.Win32;
-using Excel = Microsoft.Office.Interop.Excel;
-using System.IO;
-using System.Xml;
-using Flurl.Http;
-using System.Threading.Tasks;
-using System.Net;
-using System.Text.RegularExpressions;
-using System.Collections.Generic;
-using System.Xml.Linq;
-using System.Windows.Documents;
-using System.Xml.XPath;
-using System.Globalization;
-using System.Linq;
-using System.Threading;
-using System.Windows.Media;
-using System.Text;
-using WPF_LoginForm;
-using Tasarim1;
-using System.Reflection;
 using System.Windows.Controls.Primitives;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Xml;
+using System.Xml.Linq;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace WPF_LoginForm.View
 {
 
     public partial class LoginView : Window
     {
-      
+
 
         private KolonIsterler IsterlerModel;
         public string VersionNumber { get; set; }
@@ -42,13 +38,37 @@ namespace WPF_LoginForm.View
 
         private DataTable dataTable;
 
-
+        // KolonIsterlerData.txt dosyasının yolu
+        private readonly string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "KolonIsterlerData.txt");
 
         public LoginView()
         {
             InitializeComponent();
             VersionRun.Text = GetVersionNumber();//version numarası yazıldı
+            InitializeKolonIsterlerDataFile();
 
+        }
+        private void InitializeKolonIsterlerDataFile()
+        {
+            try
+            {
+                // Dosyanın var olup olmadığını kontrol et
+                if (!File.Exists(filePath))
+                {
+                    // Dosya yoksa oluştur
+                    using (File.Create(filePath))
+                    {
+                        // Dosya oluşturulduktan sonra kapat
+                    }
+                }
+
+               
+            }
+            catch (Exception ex)
+            {
+                // Herhangi bir hata oluştuğunda kullanıcıya bilgi ver
+                MessageBox.Show($"Dosya oluşturulurken bir hata oluştu: {ex.Message}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
 
@@ -139,7 +159,7 @@ namespace WPF_LoginForm.View
 
             return parent as DataGridCell;
         }
-        
+
         private void btnKolonSabitleriniDegistir_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -319,7 +339,7 @@ namespace WPF_LoginForm.View
                     // Apply styles to DataGrid columns
                     foreach (var column in dataGrid.Columns)
                     {
-                        if (column.Header.ToString() == "DURUM" || column.Header.ToString() == "MusteriKodu" || column.Header.ToString()=="Unvan" || column.Header.ToString() == "IlgiliKisi" || column.Header.ToString() == "MusteriGrubu" || column.Header.ToString() == "MusteriEkGrubu" || column.Header.ToString() == "OdemeTipi" || column.Header.ToString() == "KisaAdi" || column.Header.ToString() == "VergiTipi")
+                        if (column.Header.ToString() == "DURUM" || column.Header.ToString() == "MusteriKodu" || column.Header.ToString() == "Unvan" || column.Header.ToString() == "IlgiliKisi" || column.Header.ToString() == "MusteriGrubu" || column.Header.ToString() == "MusteriEkGrubu" || column.Header.ToString() == "OdemeTipi" || column.Header.ToString() == "KisaAdi" || column.Header.ToString() == "VergiTipi")
                         {
                             var headerStyle = new Style(typeof(DataGridColumnHeader));
                             headerStyle.Setters.Add(new Setter(DataGridColumnHeader.ForegroundProperty, Brushes.Red));
@@ -580,7 +600,7 @@ namespace WPF_LoginForm.View
             }
         }
         //datagridde satırı bulup seçer
-       
+
 
         //AKTARILAN HÜCRELERİ BOYAMA
         private void HighlightInvalidCells(DataRow row, Color color)

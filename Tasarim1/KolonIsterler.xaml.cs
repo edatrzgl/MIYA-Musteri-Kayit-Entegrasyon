@@ -26,6 +26,7 @@ namespace WPF_LoginForm.View
             }
         }
 
+
         private void btnKapat_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
