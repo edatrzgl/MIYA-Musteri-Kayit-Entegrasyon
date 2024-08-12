@@ -71,7 +71,7 @@
                         Cursor="Hand"
                         Grid.Column="3"
                         Click="btnMinimize_Click"
-                        Margin="728,0,16,0">
+                        Margin="747,0,16,0">
                     <Button.Style>
                         <Style TargetType="Button">
                             <Setter Property="Background" Value="#28AEED"/>
@@ -102,7 +102,7 @@
                         FontFamily="Montserrat"
                         Cursor="Hand"
                         Grid.Column="3"
-                        Click="btnClose_Click" Margin="770,0,2,0">
+                        Click="btnClose_Click" Margin="776,0,-4,0" Grid.ColumnSpan="3">
                     <Button.Style>
                         <Style TargetType="Button">
                             <Setter Property="Background" Value="#DA34AE"/>
@@ -393,9 +393,9 @@
                     FontSize="12"
                     FontWeight="Medium"
                     FontFamily="Montserrat"
-                    Margin="0,15,-0.8,0"/>
+                    />
                 <RichTextBox x:Name="rtbErrorMessages"
-                    Height="139" Margin="10,2,859.2,0" HorizontalAlignment="Left"
+                    Height="155" Margin="10,2,859.2,0" HorizontalAlignment="Left"
                              Background="AntiqueWhite" Width="341">
                     <FlowDocument>
                         <Paragraph>
