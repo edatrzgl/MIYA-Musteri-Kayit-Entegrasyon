@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_LoginForm.View"
         mc:Ignorable="d"
-        Title="LoginView" Height="779.6" Width="1219.2"
+        Title="LoginView" Height="779.6" Width="1446"
         WindowStyle="None"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
@@ -71,7 +71,7 @@
                         Cursor="Hand"
                         Grid.Column="3"
                         Click="btnMinimize_Click"
-                        Margin="634.067,0,16.2,0">
+                        Margin="728,0,16,0">
                     <Button.Style>
                         <Style TargetType="Button">
                             <Setter Property="Background" Value="#28AEED"/>
@@ -102,7 +102,7 @@
                         FontFamily="Montserrat"
                         Cursor="Hand"
                         Grid.Column="3"
-                        Click="btnClose_Click" Margin="664.067,0,2.2,0">
+                        Click="btnClose_Click" Margin="770,0,2,0">
                     <Button.Style>
                         <Style TargetType="Button">
                             <Setter Property="Background" Value="#DA34AE"/>
@@ -154,18 +154,22 @@
                            FontFamily="Montserrat"
                            Margin="0,35,0,0"/>
                 <TextBox x:Name="txtLink"
-                         Text="http://192.168.1.123:8095/integrationwebservice.asmx"
-                         FontSize="13"
-                         FontWeight="Medium"
-                         FontFamily="Montserrat"
-                         Foreground="White"
-                         CaretBrush="LightGray"
-                         BorderBrush="DarkGray"
-                         BorderThickness="0,0,0,2"
-                         VerticalContentAlignment="Center"
-                         Margin="8,5,853.2,0"
-                         Padding="20,0,0,0" Height="30"
-                         Background="BlueViolet"/>
+          Text="http://192.168.1.123:8095/integrationwebservice.asmx"
+          FontSize="13"
+          FontWeight="Medium"
+          FontFamily="Montserrat"
+          Foreground="White"
+          CaretBrush="LightGray"
+          BorderBrush="DarkGray"
+          BorderThickness="0,0,0,2"
+          VerticalContentAlignment="Center"
+          Margin="8,5,0,0"
+          Padding="20,0,0,0" 
+          HorizontalAlignment="Left" 
+          Width="330" 
+          Height="30"
+          Background="BlueViolet"/>
+
 
                 <TextBlock Text="Panoroma Şifresi"
                            Foreground="DarkGray"
@@ -174,18 +178,22 @@
                            FontFamily="Montserrat"
                            Margin="0,15,0,0"/>
                 <TextBox x:Name="txtSifre"
-                                Text="MIYAWEB"
-                             FontSize="13"
-                             FontWeight="Medium"
-                             FontFamily="Montserrat"
-                             Foreground="White"
-                             CaretBrush="LightGray"
-                             BorderBrush="DarkGray"
-                             BorderThickness="0,0,0,2"
-                             VerticalContentAlignment="Center"
-                             Margin="8,5,853.2,0"
-                             Padding="20,0,0,0" Height="30"
-                         Background="BlueViolet"/>
+          Text="MIYAWEB"
+          FontSize="13"
+          FontWeight="Medium"
+          FontFamily="Montserrat"
+          Foreground="White"
+          CaretBrush="LightGray"
+          BorderBrush="DarkGray"
+          BorderThickness="0,0,0,2"
+          VerticalContentAlignment="Center"
+          Margin="8,5,0,0"
+          Padding="20,0,0,0" 
+          HorizontalAlignment="Left" 
+          Width="330" 
+          Height="30"
+          Background="BlueViolet"/>
+
                 <TextBlock Text="Kullanıcı Tipi"
                     Foreground="DarkGray"
                     FontSize="12"
@@ -213,18 +221,22 @@
                            FontFamily="Montserrat"
                            Margin="0,15,0,0"/>
                 <TextBox x:Name="txtDist"
-                         Text="1"
-                             FontSize="13"
-                             FontWeight="Medium"
-                             FontFamily="Montserrat"
-                             Foreground="White"
-                             CaretBrush="LightGray"
-                             BorderBrush="DarkGray"
-                             BorderThickness="0,0,0,2"
-                             VerticalContentAlignment="Center"
-                             Margin="8,5,853.2,0"
-                         Background="BlueViolet"
-                             Padding="20,0,0,0" Height="30"/>
+          Text="1"
+          FontSize="13"
+          FontWeight="Medium"
+          FontFamily="Montserrat"
+          Foreground="White"
+          CaretBrush="LightGray"
+          BorderBrush="DarkGray"
+          BorderThickness="0,0,0,2"
+          VerticalContentAlignment="Center"
+          Margin="8,5,0,0"
+          Padding="20,0,0,0" 
+          HorizontalAlignment="Left" 
+          Width="330" 
+          Height="30"
+          Background="BlueViolet"/>
+
 
                 <TextBlock Text="Firma Kodu"
                            Foreground="DarkGray"
@@ -233,18 +245,22 @@
                            FontFamily="Montserrat"
                            Margin="0,15,0,0"/>
                 <TextBox x:Name="txtFirmaKodu"
-                         Text="1"
-                             FontSize="13"
-                             FontWeight="Medium"
-                             FontFamily="Montserrat"
-                             Foreground="White"
-                             CaretBrush="LightGray"
-                             BorderBrush="DarkGray"
-                             BorderThickness="0,0,0,2"
-                             VerticalContentAlignment="Center"
-                             Margin="8,5,853.2,0"
-                             Padding="20,0,0,0" Height="30"
-                         Background="BlueViolet"/>
+          Text="1"
+          FontSize="13"
+          FontWeight="Medium"
+          FontFamily="Montserrat"
+          Foreground="White"
+          CaretBrush="LightGray"
+          BorderBrush="DarkGray"
+          BorderThickness="0,0,0,2"
+          VerticalContentAlignment="Center"
+          Margin="8,5,0,0"
+          Padding="20,0,0,0" 
+          HorizontalAlignment="Left" 
+          Width="330" 
+          Height="30"
+          Background="BlueViolet"/>
+
                 <TextBlock Text="Çalışma Yılı"
                            Foreground="DarkGray"
                            FontSize="12"
@@ -379,8 +395,8 @@
                     FontFamily="Montserrat"
                     Margin="0,15,-0.8,0"/>
                 <RichTextBox x:Name="rtbErrorMessages"
-                    Height="139" Margin="10,2,859.2,0"
-                             Background="AntiqueWhite">
+                    Height="139" Margin="10,2,859.2,0" HorizontalAlignment="Left"
+                             Background="AntiqueWhite" Width="341">
                     <FlowDocument>
                         <Paragraph>
                             <Run Text=""/>
