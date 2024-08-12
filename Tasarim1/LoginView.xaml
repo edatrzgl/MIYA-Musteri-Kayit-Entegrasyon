@@ -126,10 +126,10 @@
                 </Button>
                 <CheckBox x:Name="chkSelectAll"
                           Content="Tümünü Seç"
-                          Grid.Column="3"
-                          HorizontalAlignment="Right"
-                          Margin="0,14,583,0"
-                          VerticalAlignment="Top"
+                          Grid.Column="2"
+                          HorizontalAlignment="Left"
+                          Margin="330,0,0,0"
+                          VerticalAlignment="Center"
                           Foreground="White"
                           Checked="chkSelectAll_Checked"
                           Unchecked="chkSelectAll_Unchecked"/>
@@ -389,7 +389,7 @@
                 </RichTextBox>
             </StackPanel>
 
-           <DataGrid x:Name="dataGrid"
+            <DataGrid x:Name="dataGrid"
           HorizontalAlignment="Stretch"
           VerticalAlignment="Top"
           Margin="368,12,10,0"
@@ -403,28 +403,28 @@
           EnableColumnVirtualization="False"
           AutoGenerateColumns="True">
 
-    <DataGrid.Resources>
-        <!-- DataGridColumnHeader stil tanımı -->
-        <Style TargetType="DataGridColumnHeader">
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding Column.ExtendedProperties[Highlight]}" Value="True">
-                    <Setter Property="Foreground" Value="Red"/>
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
-    </DataGrid.Resources>
+                <DataGrid.Resources>
+                    <!-- DataGridColumnHeader stil tanımı -->
+                    <Style TargetType="DataGridColumnHeader">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Column.ExtendedProperties[Highlight]}" Value="True">
+                                <Setter Property="Foreground" Value="Red"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.Resources>
 
-    <DataGrid.Columns>
-        <!-- Seçim sütunu -->
-        <DataGridTemplateColumn Header="Seç">
-            <DataGridTemplateColumn.CellTemplate>
-                <DataTemplate>
-                    <CheckBox IsChecked="{Binding Path=Seç, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                </DataTemplate>
-            </DataGridTemplateColumn.CellTemplate>
-        </DataGridTemplateColumn>
-    </DataGrid.Columns>
-</DataGrid>
+                <DataGrid.Columns>
+                    <!-- Seçim sütunu -->
+                    <DataGridTemplateColumn Header="Seç">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding Path=Seç, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
 
 
         </Grid>

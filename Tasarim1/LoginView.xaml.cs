@@ -358,54 +358,6 @@ namespace WPF_LoginForm.View
             }
         }
 
-
-
-
-
-        //private void FillEmptyCellsWithVariables(DataTable dataTable)
-        //{
-        //    foreach (DataRow row in dataTable.Rows)
-        //    {
-        //        foreach (DataColumn column in dataTable.Columns)
-        //        {
-        //            if (string.IsNullOrEmpty(row[column].ToString()))
-        //            {
-        //                switch (column.ColumnName)
-        //                {
-        //                    case "Durum":
-        //                        row[column] = KolonIsterlerData.Durum;
-        //                        break;
-        //                    case "MusteriKodu":
-        //                        row[column] = KolonIsterlerData.MusteriKodu;
-        //                        break;
-        //                    case "Unvan":
-        //                        row[column] = KolonIsterlerData.Unvan;
-        //                        break;
-        //                    case "IlgiliKisi":
-        //                        row[column] = KolonIsterlerData.IlgiliKisi;
-        //                        break;
-        //                    case "MusteriGrubu":
-        //                        row[column] = KolonIsterlerData.MusteriGrubu;
-        //                        break;
-        //                    case "MusteriEkGrubu":
-        //                        row[column] = KolonIsterlerData.MusteriEkGrubu;
-        //                        break;
-        //                    case "OdemeTipi":
-        //                        row[column] = KolonIsterlerData.OdemeTipi;
-        //                        break;
-        //                    case "KisaAdi":
-        //                        row[column] = KolonIsterlerData.KisaAdi;
-        //                        break;
-        //                    case "VergiTipi":
-        //                        row[column] = KolonIsterlerData.VergiTipi;
-        //                        break;
-        //                }
-        //            }
-        //        }
-        //    }
-        //}
-
-
         // Boşlukları normalleştiren yardımcı yöntem
         private string NormalizeSpaces(string input)
         {
