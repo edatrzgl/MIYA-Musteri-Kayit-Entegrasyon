@@ -44,7 +44,7 @@ namespace WPF_LoginForm.View
         $"Durum={txtDurum.Text}",
         //$"MusteriKodu={txtMusteriKodu.Text}",
         //$"Unvan={txtUnvan.Text}",
-        //$"IlgiliKisi={txtIlgiliKisi.Text}",
+        $"IlgiliKisi={txtIlgiliKisi.Text}",
         $"MusteriGrubu={txtMüsteriGrubu.Text}",
         $"MusteriEkGrubu={txtMusteriEkgrup.Text}",
         $"OdemeTipi={txtOdemeTipi.Text}",
@@ -113,9 +113,9 @@ namespace WPF_LoginForm.View
                             // case "Unvan":
                             //     txtUnvan.Text = value;
                             //     break;
-                            // case "IlgiliKisi":
-                            //     txtIlgiliKisi.Text = value;
-                            //     break;
+                             case "IlgiliKisi":
+                                txtIlgiliKisi.Text = value;
+                                break;
                             case "MusteriGrubu":
                                 txtMüsteriGrubu.Text = value;
                                 break;

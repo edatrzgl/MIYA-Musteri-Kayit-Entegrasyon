@@ -125,6 +125,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="BeklemeEkrani.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="BildirimMesaji.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -140,6 +144,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BeklemeEkrani.xaml.cs">
+      <DependentUpon>BeklemeEkrani.xaml</DependentUpon>
     </Compile>
     <Compile Include="BildirimMesaji.xaml.cs">
       <DependentUpon>BildirimMesaji.xaml</DependentUpon>

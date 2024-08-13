@@ -34,13 +34,13 @@
                 <GradientStop Color="#1B1448" Offset="1"/>
             </LinearGradientBrush>
         </Border.Background>
-        
-       
+
+
 
         <Grid Margin="0,0,-292.8,-69.8" Height="841" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="1152">
 
 
-            
+
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -238,6 +238,25 @@
                     VerticalContentAlignment="Center"
                     Margin="8,5,0,0"
                     Padding="20,0,0,0" HorizontalAlignment="Left" Width="330" Height="30"
+                    Background="BlueViolet"/>
+                <TextBlock Text="İlgili Kisi"
+                    Foreground="DarkGray"
+                    FontSize="12"
+                    FontWeight="Medium"
+                    FontFamily="Montserrat"
+                    Width="348"/>
+                <TextBox x:Name="txtIlgiliKisi"
+                         
+                    Text=""
+                    FontSize="13"
+                    FontWeight="Medium"
+                    FontFamily="Montserrat"
+                    Foreground="White"
+                    CaretBrush="LightGray"
+                    BorderBrush="DarkGray"
+                    BorderThickness="0,0,0,2"
+                    VerticalContentAlignment="Center"
+                    Padding="20,0,0,0" Width="330" Height="30"
                     Background="BlueViolet"/>
                 <Grid Margin="42,50,0,0" HorizontalAlignment="Left" Width="290">
                     <Grid.ColumnDefinitions>
