@@ -239,6 +239,10 @@ namespace WPF_LoginForm.View
                 Excel.Workbook çalışmaKitabı = null;
                 Excel.Worksheet çalışmaSayfası = null;
 
+                // Bekleme ekranını oluştur ve göster
+                var beklemeEkrani = new BeklemeEkrani();
+                beklemeEkrani.Show();
+
                 try
                 {
                     // Read values from text file
@@ -253,11 +257,7 @@ namespace WPF_LoginForm.View
                     dataTable?.Clear();
                     dataTable = new DataTable();
 
-                    var mesaj = new Tasarim1.BildirimMesaji("Excel Dosyası Aktarılıyor Bekleyin!");
-                    mesaj.Show();
-                    await Task.Delay(3000);
-                    mesaj.Close();
-
+                    await Task.Delay(3000); // Önceki mesajı gösterme süresi
                     int sütunSayısı = çalışmaSayfası.UsedRange.Columns.Count;
                     for (int sütun = 1; sütun <= sütunSayısı; sütun++)
                     {
@@ -319,7 +319,7 @@ namespace WPF_LoginForm.View
                     // Apply styles to DataGrid columns
                     foreach (var column in dataGrid.Columns)
                     {
-                        if (column.Header.ToString() == "DURUM" || column.Header.ToString() == "MusteriKodu" || column.Header.ToString()=="Unvan" || column.Header.ToString() == "IlgiliKisi" || column.Header.ToString() == "MusteriGrubu" || column.Header.ToString() == "MusteriEkGrubu" || column.Header.ToString() == "OdemeTipi" || column.Header.ToString() == "KisaAdi" || column.Header.ToString() == "VergiTipi")
+                        if (column.Header.ToString() == "DURUM" || column.Header.ToString() == "MusteriKodu" || column.Header.ToString() == "Unvan" || column.Header.ToString() == "IlgiliKisi" || column.Header.ToString() == "MusteriGrubu" || column.Header.ToString() == "MusteriEkGrubu" || column.Header.ToString() == "OdemeTipi" || column.Header.ToString() == "KisaAdi" || column.Header.ToString() == "VergiTipi")
                         {
                             var headerStyle = new Style(typeof(DataGridColumnHeader));
                             headerStyle.Setters.Add(new Setter(DataGridColumnHeader.ForegroundProperty, Brushes.Red));
@@ -337,6 +337,9 @@ namespace WPF_LoginForm.View
                 }
                 finally
                 {
+                    // Bekleme ekranını kapat
+                    beklemeEkrani.Close();
+
                     if (çalışmaKitabı != null)
                     {
                         çalışmaKitabı.Close(false);
@@ -357,6 +360,7 @@ namespace WPF_LoginForm.View
                 }
             }
         }
+
 
         // Boşlukları normalleştiren yardımcı yöntem
         private string NormalizeSpaces(string input)
