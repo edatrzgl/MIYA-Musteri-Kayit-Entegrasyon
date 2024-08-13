@@ -235,17 +235,18 @@ namespace WPF_LoginForm.View
             {
                 string dosyaAdı = openFileDialog.FileName;
 
+                // Bekleme ekranını oluştur ve göster (en başta)
+                var beklemeEkrani = new BeklemeEkrani();
+                beklemeEkrani.Show();
+                await Task.Delay(3000);
+
                 Excel.Application excelUygulama = null;
                 Excel.Workbook çalışmaKitabı = null;
                 Excel.Worksheet çalışmaSayfası = null;
 
-                // Bekleme ekranını oluştur ve göster
-                var beklemeEkrani = new BeklemeEkrani();
-                beklemeEkrani.Show();
-
                 try
                 {
-                    // Read values from text file
+                    // Text dosyasından verileri oku
                     var kolonIsterlerData = File.ReadAllLines("KolonIsterlerData.txt")
                         .Select(line => line.Split('='))
                         .ToDictionary(parts => parts[0], parts => parts.Length > 1 ? parts[1] : string.Empty);
@@ -257,57 +258,57 @@ namespace WPF_LoginForm.View
                     dataTable?.Clear();
                     dataTable = new DataTable();
 
-                    await Task.Delay(3000); // Önceki mesajı gösterme süresi
                     int sütunSayısı = çalışmaSayfası.UsedRange.Columns.Count;
+                    int satırSayısı = çalışmaSayfası.UsedRange.Rows.Count;
+
+                    // Sütun isimlerini tek seferde al
+                    var sütunAdları = new string[sütunSayısı];
                     for (int sütun = 1; sütun <= sütunSayısı; sütun++)
                     {
                         Excel.Range başlıkHücresi = çalışmaSayfası.Cells[1, sütun];
                         string sütunAdı = başlıkHücresi.Value2?.ToString().Replace(" ", "") ?? "";
                         sütunAdı = ReplaceTurkishCharacters(sütunAdı);
+                        sütunAdları[sütun - 1] = sütunAdı;
                         dataTable.Columns.Add(sütunAdı);
                     }
 
-                    int satırSayısı = çalışmaSayfası.UsedRange.Rows.Count;
+                    // Satırları ve hücreleri işleyerek dataTable'ı doldur
+                    object[,] hücreVerileri = çalışmaSayfası.UsedRange.Value2;
                     for (int satır = 2; satır <= satırSayısı; satır++)
                     {
                         DataRow yeniSatır = dataTable.NewRow();
                         for (int sütun = 1; sütun <= sütunSayısı; sütun++)
                         {
-                            Excel.Range hücre = çalışmaSayfası.Cells[satır, sütun];
-                            string cellValue = hücre.Value2?.ToString() ?? "";
+                            string hücreVerisi = hücreVerileri[satır, sütun]?.ToString() ?? "";
 
-                            if (dataTable.Columns[sütun - 1].ColumnName == "Adres")
+                            if (sütunAdları[sütun - 1] == "Adres")
                             {
-                                cellValue = cellValue.Replace("-", "").Replace(".", "");
-                                cellValue = NormalizeSpaces(cellValue);
+                                hücreVerisi = hücreVerisi.Replace("-", "").Replace(".", "");
+                                hücreVerisi = NormalizeSpaces(hücreVerisi);
                             }
-                            else if (dataTable.Columns[sütun - 1].ColumnName == "OdemeTipi")
+                            else if (sütunAdları[sütun - 1] == "OdemeTipi")
                             {
-                                cellValue = RemoveAllSpaces(cellValue);
+                                hücreVerisi = RemoveAllSpaces(hücreVerisi);
                             }
-
-                            if (dataTable.Columns[sütun - 1].ColumnName == "KisaAdi" && cellValue.Length > 30)
+                            else if (sütunAdları[sütun - 1] == "KisaAdi" && hücreVerisi.Length > 30)
                             {
-                                cellValue = cellValue.Substring(0, 30);
-                                hücre.Value2 = cellValue;
+                                hücreVerisi = hücreVerisi.Substring(0, 30);
+                                hücreVerileri[satır, sütun] = hücreVerisi; // Değişikliği Excel'e kaydet
                             }
 
-                            yeniSatır[sütun - 1] = cellValue;
+                            yeniSatır[sütun - 1] = hücreVerisi;
                         }
                         dataTable.Rows.Add(yeniSatır);
                     }
 
-                    // Fill empty cells with values from KolonIsterlerData
+                    // Boş hücreleri doldur
                     foreach (DataRow row in dataTable.Rows)
                     {
                         foreach (DataColumn column in dataTable.Columns)
                         {
-                            if (string.IsNullOrWhiteSpace(row[column].ToString()))
+                            if (string.IsNullOrWhiteSpace(row[column].ToString()) && kolonIsterlerData.TryGetValue(column.ColumnName, out var value))
                             {
-                                if (kolonIsterlerData.TryGetValue(column.ColumnName, out var value))
-                                {
-                                    row[column] = value;
-                                }
+                                row[column] = value;
                             }
                         }
                     }
@@ -316,10 +317,11 @@ namespace WPF_LoginForm.View
                     dataGrid.ItemsSource = dataTable.DefaultView;
                     dataGrid.Items.Refresh();
 
-                    // Apply styles to DataGrid columns
+                    // DataGrid sütunlarına stil uygula
                     foreach (var column in dataGrid.Columns)
                     {
-                        if (column.Header.ToString() == "DURUM" || column.Header.ToString() == "MusteriKodu" || column.Header.ToString() == "Unvan" || column.Header.ToString() == "IlgiliKisi" || column.Header.ToString() == "MusteriGrubu" || column.Header.ToString() == "MusteriEkGrubu" || column.Header.ToString() == "OdemeTipi" || column.Header.ToString() == "KisaAdi" || column.Header.ToString() == "VergiTipi")
+                        if (new[] { "DURUM", "MusteriKodu", "Unvan", "IlgiliKisi", "MusteriGrubu", "MusteriEkGrubu", "OdemeTipi", "KisaAdi", "VergiTipi" }
+                            .Contains(column.Header.ToString()))
                         {
                             var headerStyle = new Style(typeof(DataGridColumnHeader));
                             headerStyle.Setters.Add(new Setter(DataGridColumnHeader.ForegroundProperty, Brushes.Red));
@@ -360,6 +362,9 @@ namespace WPF_LoginForm.View
                 }
             }
         }
+
+
+
 
 
         // Boşlukları normalleştiren yardımcı yöntem
@@ -538,13 +543,6 @@ namespace WPF_LoginForm.View
                 AppendErrorMessage($"İstek gönderilirken bir hata oluştu: {ex.Message}", "");
             }
         }
-
-
-
-
-
-
-
         private void SetAllCheckBoxes(bool isChecked)
         {
             // DataGrid'in Items koleksiyonunda gezinin
@@ -592,8 +590,6 @@ namespace WPF_LoginForm.View
         }
 
 
-
-
         private void ClearRowCellBackground(DataRow row)
         {
             int rowIndex = dataTable.Rows.IndexOf(row);
@@ -630,8 +626,6 @@ namespace WPF_LoginForm.View
                 }
             }
         }
-
-
 
         private void HighlightSuccessfulCells(DataRow row, Color color)
         {
@@ -778,12 +772,6 @@ namespace WPF_LoginForm.View
         private CustomerIntegration MapRowToCustomer(DataRow row)
         {
             var vergiTip = ReplaceTurkishCharacters(RemoveAllSpaces(row["VergiTipi"].ToString()));
-
-
-            // VergiTipi değerini dönüştürün
-
-
-            // OdemeTipi değerini dönüştürün
             Enum.TryParse(row["OdemeTipi"].ToString(), true, out OdemeTipiEnum odemeTipi);
             var returned = new CustomerIntegration
             {
