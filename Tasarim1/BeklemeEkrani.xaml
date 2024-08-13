@@ -6,6 +6,7 @@
     AllowsTransparency="True"
     VerticalAlignment="Center"
     Background="Transparent"
+         WindowStartupLocation="CenterScreen"
     
     Loaded="RootGrid_Loaded">
     <Window.Resources>

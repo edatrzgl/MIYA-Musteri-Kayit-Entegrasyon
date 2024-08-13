@@ -32,7 +32,7 @@ namespace WPF_LoginForm.View
     {
       
 
-        private KolonIsterler IsterlerModel;
+        
         public string VersionNumber { get; set; }
 
 
