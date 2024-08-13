@@ -25,6 +25,7 @@ using Tasarim1;
 using System.Reflection;
 using System.Windows.Controls.Primitives;
 
+
 namespace WPF_LoginForm.View
 {
 
@@ -482,7 +483,7 @@ namespace WPF_LoginForm.View
                         // Hücrelerin arka plan rengini temizleyin
                         ClearRowCellBackground(row);
 
-                        var customers = new List<CustomerIntegration> { MapRowToCustomer(row) };
+                        var customers = new List<Tasarim1.CustomerIntegration> { MapRowToCustomer(row) };
                         string xmlData = ConvertCustomersToXML(customers, UserName, panServisSifresi, firmaKodu, calismaYili, dist);
 
                         var response = await panServisLinki
@@ -769,11 +770,11 @@ namespace WPF_LoginForm.View
             return true;
         }
 
-        private CustomerIntegration MapRowToCustomer(DataRow row)
+        private Tasarim1.CustomerIntegration MapRowToCustomer(DataRow row)
         {
             var vergiTip = ReplaceTurkishCharacters(RemoveAllSpaces(row["VergiTipi"].ToString()));
             Enum.TryParse(row["OdemeTipi"].ToString(), true, out OdemeTipiEnum odemeTipi);
-            var returned = new CustomerIntegration
+            var returned = new Tasarim1.CustomerIntegration
             {
                 Durum = Enum.TryParse(row["Durum"].ToString(), true, out DurumEnum durum) ? (int?)durum : (int?)null,
                 ErpKod2 = row["MusteriKodu"].ToString(),
@@ -800,7 +801,7 @@ namespace WPF_LoginForm.View
         }
 
 
-        private string ConvertCustomersToXML(List<CustomerIntegration> customers, string UserName, string panServisSifresi, string firmaKodu, string calismaYili, string dist)
+        private string ConvertCustomersToXML(List<Tasarim1.CustomerIntegration> customers, string UserName, string panServisSifresi, string firmaKodu, string calismaYili, string dist)
         {
             if (customers == null || customers.Count == 0)
                 throw new InvalidOperationException("Customer list is empty or invalid.");
@@ -926,30 +927,7 @@ namespace WPF_LoginForm.View
         VergiTipi
     }
 
-    public class CustomerIntegration
-    {
-        public int? Durum { get; set; }
-        public string ErpKod2 { get; set; }
-        public string Unvan { get; set; }
-        public string IlgiliKisi { get; set; }
-        public string Adres1 { get; set; }
-        public string MerkezIlTextKod { get; set; }
-        public string Ilce { get; set; }
-        public string TCKimlikNo { get; set; }
-        public string CepTelNo { get; set; }
-        public string VD { get; set; }
-        public string VN { get; set; }
-        public string MusteriGrupTextKod { get; set; }
-        public string MusteriEkGrupTextKod { get; set; }
-        public int? OdemeTipi { get; set; }
-        public string KisaAd { get; set; }
-        public int? KdvMuaf { get; set; }
-        public decimal? KoordinatX { get; set; }
-        public decimal? KoordinatY { get; set; }
-        public int? VadeGun { get; set; }
-        public decimal? IskontoOran { get; set; }
-
-    }
+    
     public enum VergiTipiEnum
     {
         KDVdenMuaf = 1,

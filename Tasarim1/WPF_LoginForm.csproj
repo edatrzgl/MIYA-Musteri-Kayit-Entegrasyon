@@ -155,6 +155,7 @@
     <Compile Include="BildirimMesaji.xaml.cs">
       <DependentUpon>BildirimMesaji.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CustomerIntegrationRealClass.cs" />
     <Compile Include="KolonIsterler.xaml.cs">
       <DependentUpon>KolonIsterler.xaml</DependentUpon>
     </Compile>
