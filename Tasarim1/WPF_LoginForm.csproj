@@ -158,7 +158,6 @@
     <Compile Include="KolonIsterler.xaml.cs">
       <DependentUpon>KolonIsterler.xaml</DependentUpon>
     </Compile>
-    <Compile Include="KolonIsterlerData.cs" />
     <Compile Include="LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
       <SubType>Code</SubType>
