@@ -218,5 +218,8 @@
   <ItemGroup>
     <Resource Include="miyaLogo.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\miyaIcon.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
