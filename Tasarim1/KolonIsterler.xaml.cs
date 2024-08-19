@@ -39,18 +39,18 @@ namespace WPF_LoginForm.View
 
         private async void btnKaydet_Click(object sender, RoutedEventArgs e)
         {
-            var lines = new List<string>
-    {
-        $"Durum={txtDurum.Text}",
-        //$"MusteriKodu={txtMusteriKodu.Text}",
-        //$"Unvan={txtUnvan.Text}",
-        $"IlgiliKisi={txtIlgiliKisi.Text}",
-        $"MusteriGrubu={txtMüsteriGrubu.Text}",
-        $"MusteriEkGrubu={txtMusteriEkgrup.Text}",
-        $"OdemeTipi={txtOdemeTipi.Text}",
-        $"KisaAdi={txtKisaAdi.Text}",
-        //$"VergiTipi={txtVergiTipi.Text}"
-    };
+          var lines = new List<string>
+            {
+                $"Durum={txtDurum.Text}",
+                //$"MusteriKodu={txtMusteriKodu.Text}",
+                //$"Unvan={txtUnvan.Text}",
+                $"IlgiliKisi={txtIlgiliKisi.Text}",
+                $"MusteriGrubu={txtMüsteriGrubu.Text}",
+                $"MusteriEkGrubu={txtMusteriEkgrup.Text}",
+                $"OdemeTipi={txtOdemeTipi.Text}",
+                $"KisaAdi={txtKisaAdi.Text}",
+                //$"VergiTipi={txtVergiTipi.Text}"
+            };
 
             try
             {

@@ -238,6 +238,7 @@ namespace WPF_LoginForm.View
 
                 // Bekleme ekranını oluştur ve göster (en başta)
                 var beklemeEkrani = new BeklemeEkrani();
+                beklemeEkrani.Topmost = true;
                 beklemeEkrani.Show();
                 await Task.Delay(3000);
 
