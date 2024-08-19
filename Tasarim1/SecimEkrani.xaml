@@ -1,0 +1,126 @@
+﻿<Window x:Class="ExcelToPanorama.SecimEkrani"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Secim Ekranı"
+        Height="450"
+        Width="800"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        AllowsTransparency="True">
+    <Grid>
+        <Border Background="BlueViolet" CornerRadius="20">
+            <Grid>
+
+                <!-- İçerik için gerekli diğer UI elemanlarını buraya ekleyebilirsiniz. -->
+                <!-- Örneğin, bir metin kutusu, butonlar vs. -->
+
+                <Button x:Name="btnClose"
+         BorderThickness="0"
+         Content="X"
+         Foreground="White"
+         FontSize="12"
+         FontFamily="Montserrat"
+         Cursor="Hand"
+         Click="btnClose_Click" Margin="763,7,10,0" Height="28" VerticalAlignment="Top">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="#DA34AE"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#C62DAE"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Width="18" Height="18"
+                     CornerRadius="9"
+                     Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
+                <!-- Örnek bir TextBlock ve Button ekliyoruz -->
+                <TextBlock Text="AKTARIM TÜRÜNÜ SEÇİN"
+                           Foreground="White"
+                           FontSize="34"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Top"
+                           TextWrapping="Wrap"
+                           Margin="206,68,0,0"/>
+                <Button x:Name="btnMusteri"
+                        Content="Müsteri Aktar"
+                        Foreground="White"
+                        FontSize="12"
+                        FontFamily="Montserrat"
+                        Cursor="Hand"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Bottom"
+                        Width="188"
+                        Margin="101,0,0,82"
+                        Click="BtnMusteri_Click" Height="105">
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Background" Value="#462AD8"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#28AEED"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Width="150" Height="40"
+                                    CornerRadius="20"
+                                    Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Button x:Name="btnUrun"
+                    Content="Urun Aktar"
+                    Foreground="White"
+                    FontSize="12"
+                    FontFamily="Montserrat"
+                    Cursor="Hand"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom"
+                    Width="188"
+                    Margin="503,0,0,82"
+                    Click="BtnUrun_Click" Height="105">
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Background" Value="#462AD8"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#28AEED"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Width="150" Height="40"
+                                CornerRadius="20"
+                                Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Image HorizontalAlignment="Left" Height="100" Margin="140,172,0,0" VerticalAlignment="Top" Width="100" Source="Images\customer.png" />
+                <Image HorizontalAlignment="Left" Height="100" Margin="546,171,0,0" VerticalAlignment="Top" Width="100" Source="/Images/delivery-box.png" />
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
