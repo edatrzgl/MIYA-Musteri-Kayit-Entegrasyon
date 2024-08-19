@@ -12,10 +12,6 @@
     <Grid>
         <Border Background="BlueViolet" CornerRadius="20">
             <Grid>
-
-                <!-- İçerik için gerekli diğer UI elemanlarını buraya ekleyebilirsiniz. -->
-                <!-- Örneğin, bir metin kutusu, butonlar vs. -->
-
                 <Button x:Name="btnClose"
          BorderThickness="0"
          Content="X"

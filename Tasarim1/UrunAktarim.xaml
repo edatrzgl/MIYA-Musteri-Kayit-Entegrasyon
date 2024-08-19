@@ -1,0 +1,450 @@
+﻿<Window x:Class="ExcelToPanorama.UrunAktarim"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF_LoginForm.View"
+        mc:Ignorable="d"
+        Title="LoginView" Height="779.6" Width="1446"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Background="Transparent"
+        AllowsTransparency="True"
+        MouseDown="Window_MouseDown"
+        Icon="Images/miyaLogo.png">
+
+    <Border CornerRadius="12"
+            BorderThickness="4"
+            Opacity="5"
+            Margin="0">
+
+        <Border.BorderBrush>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#462AD8" Offset="0"/>
+                <GradientStop Color="#DA34AE" Offset="0.75"/>
+                <GradientStop Color="#8A16C1" Offset="1"/>
+            </LinearGradientBrush>
+        </Border.BorderBrush>
+
+        <Border.Background>
+            <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                <GradientStop Color="#060531" Offset="0"/>
+                <GradientStop Color="#1B1448" Offset="1"/>
+            </LinearGradientBrush>
+        </Border.Background>
+
+        <Grid Margin="0,0,0.2,-70">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="33*"/>
+                <RowDefinition Height="343*"/>
+                <RowDefinition Height="31*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="39*"/>
+                    <ColumnDefinition Width="488*"/>
+                    <ColumnDefinition Width="684*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Foreground="White"
+                   FontSize="10"
+                   FontFamily="Montserrat"
+                   VerticalAlignment="Center"
+                   Margin="18,10,149.2,8.4"
+                   Grid.ColumnSpan="3">
+                <Run Text="Miya Yazılım"/>
+                <Run Text=" - v"/>
+                <Run x:Name="VersionRun"/>
+                </TextBlock>
+                <Button x:Name="btnMinimize"
+                        BorderThickness="0"
+                        Content="-"
+                        Foreground="White"
+                        FontSize="16"
+                        FontFamily="Montserrat"
+                        Cursor="Hand"
+                        Grid.Column="3"
+                        Click="btnMinimize_Click"
+                        Margin="747,0,16,0">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="#28AEED"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#278BEF"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Width="18" Height="18"
+                                    CornerRadius="9"
+                                    Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
+                <Button x:Name="btnClose"
+                        BorderThickness="0"
+                        Content="X"
+                        Foreground="White"
+                        FontSize="12"
+                        FontFamily="Montserrat"
+                        Cursor="Hand"
+                        Grid.Column="3"
+                        Click="btnClose_Click" Margin="776,0,-4,0" Grid.ColumnSpan="3">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="#DA34AE"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#C62DAE"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Width="18" Height="18"
+                                    CornerRadius="9"
+                                    Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <CheckBox x:Name="chkSelectAll"
+          Content="Tümünü Seç"
+          Grid.Column="2"
+          HorizontalAlignment="Left"
+          Margin="330,0,0,0"
+          VerticalAlignment="Center"
+          Foreground="White"/>
+          <!-- Checked="chkSelectAll_Checked"
+               Unchecked="chkSelectAll_Unchecked" -->
+                    
+
+                    <!--<CheckBox Content="Gönderilemeyen Veriler" Grid.Column="2" HorizontalAlignment="Left" Margin="329.8,14,0,0" VerticalAlignment="Top" Foreground="White"  Checked="ChkShowErrorsOnly_Checked"
+                  Unchecked="ChkShowErrorsOnly_Unchecked"/>-->
+
+
+                <!-- <Label Content="Kolon Sabitlerini Değiştir" Grid.Column="3" HorizontalAlignment="Left" Margin="139.067,8,0,-2" VerticalAlignment="Top" Cursor="Hand" Foreground="White" MouseDown="Label_MouseDown"/>-->
+            </Grid>
+
+            <StackPanel Grid.Row="1" Margin="10,10,10,0" Height="724" VerticalAlignment="Top" Grid.RowSpan="2">
+                <TextBlock Text="Ürün Kayıt"
+                           Foreground="White"
+                           FontSize="25"
+                           FontWeight="Medium"
+                           FontFamily="Montserrat" Margin="7,0,0,0"/>
+
+                <TextBlock Text="Panorama Linki"
+                           Foreground="DarkGray"
+                           FontSize="12"
+                           FontWeight="Medium"
+                           FontFamily="Montserrat"
+                           Margin="0,35,0,0"/>
+                <TextBox x:Name="txtLink"
+          Text="http://192.168.1.123:8095/integrationwebservice.asmx"
+          FontSize="13"
+          FontWeight="Medium"
+          FontFamily="Montserrat"
+          Foreground="White"
+          CaretBrush="LightGray"
+          BorderBrush="DarkGray"
+          BorderThickness="0,0,0,2"
+          VerticalContentAlignment="Center"
+          Margin="8,5,0,0"
+          Padding="20,0,0,0" 
+          HorizontalAlignment="Left" 
+          Width="330" 
+          Height="30"
+          Background="BlueViolet"/>
+
+
+                <TextBlock Text="Panoroma Şifresi"
+                           Foreground="DarkGray"
+                           FontSize="12"
+                           FontWeight="Medium"
+                           FontFamily="Montserrat"
+                           Margin="0,15,0,0"/>
+                <TextBox x:Name="txtSifre"
+          Text="MIYAWEB"
+          FontSize="13"
+          FontWeight="Medium"
+          FontFamily="Montserrat"
+          Foreground="White"
+          CaretBrush="LightGray"
+          BorderBrush="DarkGray"
+          BorderThickness="0,0,0,2"
+          VerticalContentAlignment="Center"
+          Margin="8,5,0,0"
+          Padding="20,0,0,0" 
+          HorizontalAlignment="Left" 
+          Width="330" 
+          Height="30"
+          Background="BlueViolet"/>
+
+                <TextBlock Text="Kullanıcı Tipi"
+                    Foreground="DarkGray"
+                    FontSize="12"
+                    FontWeight="Medium"
+                    FontFamily="Montserrat"
+                    Margin="0,15,-0.8,0"/>
+                <TextBox x:Name="txtKullaniciTipi"
+                    Text="ERCYONETICI"
+                    FontSize="13"
+                    FontWeight="Medium"
+                    FontFamily="Montserrat"
+                    Foreground="White"
+                    CaretBrush="LightGray"
+                    BorderBrush="DarkGray"
+                    BorderThickness="0,0,0,2"
+                    VerticalContentAlignment="Center"
+                    Margin="8,5,0,0"
+                    Padding="20,0,0,0" HorizontalAlignment="Left" Width="330" Height="30"
+                         Background="BlueViolet"/>
+
+                <TextBlock Text="Distribütör"
+                           Foreground="DarkGray"
+                           FontSize="12"
+                           FontWeight="Medium"
+                           FontFamily="Montserrat"
+                           Margin="0,15,0,0"/>
+                <TextBox x:Name="txtDist"
+          Text="1"
+          FontSize="13"
+          FontWeight="Medium"
+          FontFamily="Montserrat"
+          Foreground="White"
+          CaretBrush="LightGray"
+          BorderBrush="DarkGray"
+          BorderThickness="0,0,0,2"
+          VerticalContentAlignment="Center"
+          Margin="8,5,0,0"
+          Padding="20,0,0,0" 
+          HorizontalAlignment="Left" 
+          Width="330" 
+          Height="30"
+          Background="BlueViolet"/>
+
+
+                <TextBlock Text="Firma Kodu"
+                           Foreground="DarkGray"
+                           FontSize="12"
+                           FontWeight="Medium"
+                           FontFamily="Montserrat"
+                           Margin="0,15,0,0"/>
+                <TextBox x:Name="txtFirmaKodu"
+          Text="1"
+          FontSize="13"
+          FontWeight="Medium"
+          FontFamily="Montserrat"
+          Foreground="White"
+          CaretBrush="LightGray"
+          BorderBrush="DarkGray"
+          BorderThickness="0,0,0,2"
+          VerticalContentAlignment="Center"
+          Margin="8,5,0,0"
+          Padding="20,0,0,0" 
+          HorizontalAlignment="Left" 
+          Width="330" 
+          Height="30"
+          Background="BlueViolet"/>
+
+                <TextBlock Text="Çalışma Yılı"
+                           Foreground="DarkGray"
+                           FontSize="12"
+                           FontWeight="Medium"
+                           FontFamily="Montserrat"
+                           Margin="0,15,-0.8,0"/>
+                <TextBox x:Name="txtCalismaYili"
+                         
+                         Text="2024"
+                             FontSize="13"
+                             FontWeight="Medium"
+                             FontFamily="Montserrat"
+                             Foreground="White"
+                             CaretBrush="LightGray"
+                             BorderBrush="DarkGray"
+                             BorderThickness="0,0,0,2"
+                             VerticalContentAlignment="Center"
+                             Margin="8,5,0,0"
+                             Padding="20,0,0,0" HorizontalAlignment="Left" Width="330" Height="30"
+                         Background="BlueViolet"/>
+
+                <Grid Margin="0,50,0,0" HorizontalAlignment="Left" Width="178">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button x:Name="btnExcelYükle"
+                            BorderThickness="0"
+                            Content="Excel Yükle"
+                            Foreground="White"
+                            FontSize="12"
+                            FontFamily="Montserrat"
+                            Cursor="Hand"
+                            HorizontalAlignment="Left"
+                            Width="166"
+                            Click="btnExcelYükle_Click" Margin="-3,-46,0,45.4" Grid.ColumnSpan="2">
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Background" Value="#462AD8"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#28AEED"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Width="150" Height="40"
+                                        CornerRadius="20"
+                                        Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"
+                                                      HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <Button x:Name="btnLogin"
+                            BorderThickness="0"
+                            Content="Bilgileri Aktar"
+                            Foreground="White"
+                            FontSize="12"
+                            FontFamily="Montserrat"
+                            Cursor="Hand"
+                            HorizontalAlignment="Left"
+                            Width="160"
+                            Height="44"
+                            Grid.Column="1"
+                            Margin="169.2,-46,-158,46.4"
+                            Click="btnBilgileriAktar_Click" VerticalAlignment="Bottom">
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Background" Value="#462AD8"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#28AEED"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Width="150" Height="40"
+                                        CornerRadius="20"
+                                        Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"
+                                                      HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <Button x:Name="btn_KolonSabitleri"
+                        BorderThickness="0"
+                        Content="Kolon Sabitlerini Değiştir"
+                        Foreground="White"
+                        FontSize="12"
+                        FontFamily="Montserrat"
+                        Cursor="Hand"
+                        HorizontalAlignment="Left"
+                        Width="160"
+                        Height="44"
+                        Margin="0.2,-1,0,1.4"
+                        Click="btnKolonSabitleriniDegistir_Click" Grid.Column="1">
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Background" Value="#462AD8"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#28AEED"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Width="150" Height="40"
+                                    CornerRadius="20"
+                                    Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </Grid>
+                <TextBlock Text="Hata Mesajları"
+                    Foreground="DarkGray"
+                    FontSize="12"
+                    FontWeight="Medium"
+                    FontFamily="Montserrat"
+                    />
+                <RichTextBox x:Name="rtbErrorMessages"
+                    Height="155" Margin="10,2,859.2,0" HorizontalAlignment="Left"
+                             Background="AntiqueWhite" Width="341">
+                    <FlowDocument>
+                        <Paragraph>
+                            <Run Text=""/>
+                        </Paragraph>
+                    </FlowDocument>
+                </RichTextBox>
+            </StackPanel>
+
+            <DataGrid x:Name="dataGrid"
+          HorizontalAlignment="Stretch"
+          VerticalAlignment="Top"
+          Margin="368,12,10,0"
+          Grid.Row="1"       
+          Height="702"
+          Background="AntiqueWhite"
+          Grid.RowSpan="2"
+          SelectionMode="Single"     
+          SelectionUnit="FullRow"
+          EnableRowVirtualization="False"
+          EnableColumnVirtualization="False"
+          AutoGenerateColumns="True">
+
+                <DataGrid.Resources>
+                    <!-- DataGridColumnHeader stil tanımı -->
+                    <Style TargetType="DataGridColumnHeader">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Column.ExtendedProperties[Highlight]}" Value="True">
+                                <Setter Property="Foreground" Value="Red"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.Resources>
+
+                <DataGrid.Columns>
+                    <!-- Seçim sütunu -->
+                    <DataGridTemplateColumn Header="Seç">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding Path=Seç, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+
+
+        </Grid>
+    </Border>
+</Window>

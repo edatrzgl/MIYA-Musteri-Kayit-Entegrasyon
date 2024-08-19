@@ -32,12 +32,15 @@ namespace ExcelToPanorama
         private void BtnMusteri_Click(object sender, RoutedEventArgs e)
         {
             LoginView ekran=new LoginView();
-            ekran.Show(); 
+            ekran.Show();
+            this.Close();
         }
         private void BtnUrun_Click(object sender,RoutedEventArgs e)
         {
-            var mesaj = new BildirimMesaji("");
-            mesaj.Show();
+           UrunAktarim ekran=new UrunAktarim();
+            ekran.Show();
+            this.Close();
+            
         }
     }
 }

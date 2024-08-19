@@ -135,6 +135,9 @@
     <Compile Include="SecimEkrani.xaml.cs">
       <DependentUpon>SecimEkrani.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UrunAktarim.xaml.cs">
+      <DependentUpon>UrunAktarim.xaml</DependentUpon>
+    </Compile>
     <Page Include="BeklemeEkrani.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -170,6 +173,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="SecimEkrani.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UrunAktarim.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
