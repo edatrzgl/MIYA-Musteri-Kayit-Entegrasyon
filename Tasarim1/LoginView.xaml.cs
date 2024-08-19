@@ -31,9 +31,9 @@ namespace WPF_LoginForm.View
 
     public partial class LoginView : Window
     {
-      
 
-        
+        private readonly string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "KolonIsterlerData.txt");
+
         public string VersionNumber { get; set; }
 
 
@@ -519,7 +519,7 @@ namespace WPF_LoginForm.View
                     }
                     catch (System.Security.SecurityException ex)
                     {
-                        var mesaj = new Tasarim1.BildirimMesaji("Gerekli izinlere sahip olmadığınız için işlemi tamamlayamadık. Lütfen uygulamayı yönetici olarak çalıştırmayı deneyin.");
+                        var mesaj = new Tasarim1.BildirimMesaji("Gerekli izinlere sahip olmadığınız için işlemi tamamlayamadık.");
                         mesaj.Show();
                         return;
                     }
@@ -902,7 +902,6 @@ namespace WPF_LoginForm.View
                     xmlWriter.WriteEndDocument();
                 }
 
-                // UTF-8 encoding
                 return Encoding.UTF8.GetString(memoryStream.ToArray());
             }
         }
@@ -911,8 +910,6 @@ namespace WPF_LoginForm.View
         {
 
         }
-
-
     }
 
     public enum RequiredColumns

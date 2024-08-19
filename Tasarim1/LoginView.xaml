@@ -282,7 +282,7 @@
                              Padding="20,0,0,0" HorizontalAlignment="Left" Width="330" Height="30"
                          Background="BlueViolet"/>
 
-                <Grid Margin="0,50,0,0" HorizontalAlignment="Left" Width="343">
+                <Grid Margin="0,50,0,0" HorizontalAlignment="Left" Width="178">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
