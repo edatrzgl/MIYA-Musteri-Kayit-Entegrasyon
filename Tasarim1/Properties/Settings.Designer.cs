@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Tasarim1.Properties {
+namespace ExcelToPanorama.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
