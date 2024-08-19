@@ -22,10 +22,9 @@ namespace ExcelToPanorama
     {
         public SecimEkrani()
         {
-            InitializeComponent();
+            
         }
 
-        // btnClose_Click olay işleyicisi
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -37,7 +36,7 @@ namespace ExcelToPanorama
         }
         private void BtnUrun_Click(object sender,RoutedEventArgs e)
         {
-            var mesaj = new BildirimMesaji("Bu sayfa şu an aktif değildir..");
+            var mesaj = new BildirimMesaji("");
             mesaj.Show();
         }
     }
