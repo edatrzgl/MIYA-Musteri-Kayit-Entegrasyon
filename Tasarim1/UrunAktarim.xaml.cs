@@ -37,11 +37,16 @@ namespace ExcelToPanorama
         public UrunAktarim()
         {
             InitializeComponent();
+            VersionRun.Text = GetVersionNumber();//version numarası yazıldı
         }
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)//ekran küçültme
         {
             if (e.ChangedButton == MouseButton.Left)
                 this.DragMove();
+        }
+        public string GetVersionNumber()//version numarasını aldık 
+        {
+            return Assembly.GetExecutingAssembly().GetName().Version.ToString();
         }
         private void btnMinimize_Click(object sender, RoutedEventArgs e)
         {
