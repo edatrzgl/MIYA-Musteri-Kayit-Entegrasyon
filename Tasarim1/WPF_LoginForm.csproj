@@ -132,6 +132,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="KolonIsterlerUrun.xaml.cs">
+      <DependentUpon>KolonIsterlerUrun.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SecimEkrani.xaml.cs">
       <DependentUpon>SecimEkrani.xaml</DependentUpon>
     </Compile>
@@ -147,6 +150,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="KolonIsterler.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="KolonIsterlerUrun.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

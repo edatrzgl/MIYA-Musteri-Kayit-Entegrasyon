@@ -364,11 +364,6 @@ namespace WPF_LoginForm.View
                 }
             }
         }
-
-
-
-
-
         // Boşlukları normalleştiren yardımcı yöntem
         private string NormalizeSpaces(string input)
         {
@@ -830,7 +825,7 @@ namespace WPF_LoginForm.View
                     xmlWriter.WriteElementString("bytFirmaKod", firmaKodu);
                     xmlWriter.WriteElementString("lngCalismaYili", calismaYili);
                     xmlWriter.WriteElementString("lngDistributorKod", dist);
-
+                    //////////////////
                     xmlWriter.WriteStartElement("objPanIntEntityList"); // Start objPanIntEntityList
 
                     xmlWriter.WriteStartElement("Musteriler");
@@ -912,7 +907,7 @@ namespace WPF_LoginForm.View
         }
     }
 
-    public enum RequiredColumns
+    public enum RequiredColumns//zorunlu alanlar
     {
         Durum,
         MusteriKodu,
