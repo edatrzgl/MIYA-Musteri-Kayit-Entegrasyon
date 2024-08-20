@@ -55,9 +55,8 @@
                 <TextBlock Foreground="White"
                    FontSize="10"
                    FontFamily="Montserrat"
-                   VerticalAlignment="Center"
-                   Margin="18,10,149.2,8.4"
-                   Grid.ColumnSpan="3">
+                   VerticalAlignment="Top"
+                   Margin="1,7,121,0" Grid.Column="2">
                 <Run Text="Miya Yazılım"/>
                 <Run Text=" - v"/>
                 <Run x:Name="VersionRun"/>
@@ -131,11 +130,37 @@
           Margin="330,0,0,0"
           VerticalAlignment="Center"
           Foreground="White"/>
-          <!-- Checked="chkSelectAll_Checked"
+                <Button x:Name="btnHome"
+        FontSize="10"
+        Cursor="Hand"
+        Click="btnHome_Click"
+    Margin="2,-7,46,0" RenderTransformOrigin="0.481,0.598" Grid.Column="1">
+                    <Image Source="Images/homeicon1.png" Height="24" Width="30" RenderTransformOrigin="0.488,0.469">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform AngleY="0"/>
+                                <RotateTransform/>
+                                <TranslateTransform Y="0"/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border
+                    CornerRadius="16"
+                    Background="{TemplateBinding Background}" Margin="3,7,-43,0">
+                                <ContentPresenter VerticalAlignment="Center"
+                                  HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <!-- Checked="chkSelectAll_Checked"
                Unchecked="chkSelectAll_Unchecked" -->
-                    
 
-                    <!--<CheckBox Content="Gönderilemeyen Veriler" Grid.Column="2" HorizontalAlignment="Left" Margin="329.8,14,0,0" VerticalAlignment="Top" Foreground="White"  Checked="ChkShowErrorsOnly_Checked"
+
+                <!--<CheckBox Content="Gönderilemeyen Veriler" Grid.Column="2" HorizontalAlignment="Left" Margin="329.8,14,0,0" VerticalAlignment="Top" Foreground="White"  Checked="ChkShowErrorsOnly_Checked"
                   Unchecked="ChkShowErrorsOnly_Unchecked"/>-->
 
 

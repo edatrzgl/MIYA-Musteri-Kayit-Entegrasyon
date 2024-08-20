@@ -24,6 +24,7 @@ using WPF_LoginForm;
 using Tasarim1;
 using System.Reflection;
 using System.Windows.Controls.Primitives;
+using ExcelToPanorama;
 
 
 namespace WPF_LoginForm.View
@@ -50,6 +51,12 @@ namespace WPF_LoginForm.View
             InitializeComponent();
             VersionRun.Text = GetVersionNumber();//version numarası yazıldı
 
+        }
+        private void btnHome_Click(object sender, RoutedEventArgs e)
+        {
+            SecimEkrani secimEkrani = new SecimEkrani();
+            secimEkrani.Show();
+            this.Close();
         }
 
 
@@ -906,6 +913,7 @@ namespace WPF_LoginForm.View
 
         }
     }
+   
 
     public enum RequiredColumns//zorunlu alanlar
     {
@@ -951,5 +959,6 @@ namespace WPF_LoginForm.View
         PotansiyelPasif = 4,
         PotansiyelAktif = 5
     }
+   
 
 }

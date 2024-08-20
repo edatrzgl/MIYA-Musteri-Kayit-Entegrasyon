@@ -19,6 +19,7 @@
             Opacity="5"
             Margin="0">
 
+
         <Border.BorderBrush>
             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                 <GradientStop Color="#462AD8" Offset="0"/>
@@ -34,6 +35,7 @@
             </LinearGradientBrush>
         </Border.Background>
 
+
         <Grid Margin="0,0,0.2,-70">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -42,7 +44,9 @@
                 <RowDefinition Height="31*"/>
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0">
+
+
+            <Grid Grid.Row="0" HorizontalAlignment="Left" Width="1438">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="39*"/>
@@ -56,8 +60,7 @@
                    FontSize="10"
                    FontFamily="Montserrat"
                    VerticalAlignment="Center"
-                   Margin="18,10,149.2,8.4"
-                   Grid.ColumnSpan="3">
+                   Margin="3,0,0,0" HorizontalAlignment="Left" Width="373" Grid.Column="2">
                 <Run Text="Miya Yazılım"/>
                 <Run Text=" - v"/>
                 <Run x:Name="VersionRun"/>
@@ -102,7 +105,7 @@
                         FontFamily="Montserrat"
                         Cursor="Hand"
                         Grid.Column="3"
-                        Click="btnClose_Click" Margin="776,0,-4,0" Grid.ColumnSpan="3">
+                        Click="btnClose_Click" Margin="776,0,0,0" Grid.ColumnSpan="3" HorizontalAlignment="Left" Width="40">
                     <Button.Style>
                         <Style TargetType="Button">
                             <Setter Property="Background" Value="#DA34AE"/>
@@ -133,6 +136,32 @@
                           Foreground="White"
                           Checked="chkSelectAll_Checked"
                           Unchecked="chkSelectAll_Unchecked"/>
+                <Button x:Name="btnHome"
+                        FontSize="10"
+                        Cursor="Hand"
+                        Click="btnHome_Click"
+                    Margin="2,-7,46,0" RenderTransformOrigin="0.481,0.598" Grid.Column="1">
+                    <Image Source="Images/homeicon1.png" Height="24" Width="30" RenderTransformOrigin="0.488,0.469">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform AngleY="0"/>
+                                <RotateTransform/>
+                                <TranslateTransform Y="0"/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border
+                                    CornerRadius="16"
+                                    Background="{TemplateBinding Background}" Margin="3,7,-43,0">
+                                <ContentPresenter VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
                 <!--<CheckBox Content="Gönderilemeyen Veriler" Grid.Column="2" HorizontalAlignment="Left" Margin="329.8,14,0,0" VerticalAlignment="Top" Foreground="White"  Checked="ChkShowErrorsOnly_Checked"
                   Unchecked="ChkShowErrorsOnly_Unchecked"/>-->
 
@@ -282,7 +311,7 @@
                              Padding="20,0,0,0" HorizontalAlignment="Left" Width="330" Height="30"
                          Background="BlueViolet"/>
 
-                <Grid Margin="0,50,0,0" HorizontalAlignment="Left" Width="178">
+                <Grid Margin="0,50,0,0" HorizontalAlignment="Left" Width="173">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
@@ -354,6 +383,10 @@
                             </ControlTemplate>
                         </Button.Template>
                     </Button>
+
+
+
+
                     <Button x:Name="btn_KolonSabitleri"
                         BorderThickness="0"
                         Content="Kolon Sabitlerini Değiştir"

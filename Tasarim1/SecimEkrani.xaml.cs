@@ -22,7 +22,7 @@ namespace ExcelToPanorama
     {
         public SecimEkrani()
         {
-            
+            InitializeComponent();
         }
 
         private void btnClose_Click(object sender, RoutedEventArgs e)

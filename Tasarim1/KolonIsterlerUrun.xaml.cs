@@ -14,9 +14,7 @@ using System.Windows.Shapes;
 
 namespace ExcelToPanorama
 {
-    /// <summary>
-    /// KolonIsterlerUrun.xaml etkileşim mantığı
-    /// </summary>
+  
     public partial class KolonIsterlerUrun : Window
     {
         public KolonIsterlerUrun()
@@ -42,7 +40,8 @@ namespace ExcelToPanorama
             this.WindowState = WindowState.Minimized;
         }
         private void btnKaydet_Click(object sender, RoutedEventArgs e)
-        { 
+        {
+            
         }
     }
 }

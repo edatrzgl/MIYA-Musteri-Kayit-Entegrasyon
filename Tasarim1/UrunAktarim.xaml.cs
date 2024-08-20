@@ -51,6 +51,12 @@ namespace ExcelToPanorama
         {
             this.Close();
         }
+        private void btnHome_Click(object sender, RoutedEventArgs e)
+        {
+            SecimEkrani secimEkrani = new SecimEkrani();
+            secimEkrani.Show();
+            this.Close();
+        }
 
         private void btnBilgileriAktar_Click(object sender, RoutedEventArgs e)
         {
