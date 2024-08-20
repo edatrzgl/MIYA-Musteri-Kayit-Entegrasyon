@@ -113,7 +113,7 @@ namespace ExcelToPanorama
                 try
                 {
                     // Text dosyasından verileri oku
-                    var kolonIsterlerData = File.ReadAllLines("KolonIsterlerData.txt")
+                    var kolonIsterlerData = File.ReadAllLines("KolonIsterlerDataUrun.txt")
                         .Select(line => line.Split('='))
                         .ToDictionary(parts => parts[0], parts => parts.Length > 1 ? parts[1] : string.Empty);
 
