@@ -135,6 +135,7 @@
     <Compile Include="KolonIsterlerUrun.xaml.cs">
       <DependentUpon>KolonIsterlerUrun.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ProductRealClass.cs" />
     <Compile Include="SecimEkrani.xaml.cs">
       <DependentUpon>SecimEkrani.xaml</DependentUpon>
     </Compile>

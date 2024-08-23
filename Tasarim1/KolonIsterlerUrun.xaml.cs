@@ -11,12 +11,17 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.IO;
+
 
 namespace ExcelToPanorama
 {
   
     public partial class KolonIsterlerUrun : Window
     {
+        
+        private readonly string excelFilePath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "KolonIsterlerDataUrun.txt");
+
         public KolonIsterlerUrun()
         {
             InitializeComponent();
@@ -41,7 +46,7 @@ namespace ExcelToPanorama
         }
         private void btnKaydet_Click(object sender, RoutedEventArgs e)
         {
-            
+        
         }
     }
 }

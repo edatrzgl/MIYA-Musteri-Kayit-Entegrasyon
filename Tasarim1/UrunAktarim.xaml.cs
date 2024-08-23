@@ -32,7 +32,7 @@ namespace ExcelToPanorama
 
     {
 
-        private readonly string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "KolonIsterlerDataUrun.txt");
+        
         private DataTable dataTable;
         public UrunAktarim()
         {
@@ -225,7 +225,7 @@ namespace ExcelToPanorama
                         excelUygulama.Quit();
                         System.Runtime.InteropServices.Marshal.ReleaseComObject(excelUygulama);
                     }
-
+                    
                     GC.Collect();
                     GC.WaitForPendingFinalizers();
                 }

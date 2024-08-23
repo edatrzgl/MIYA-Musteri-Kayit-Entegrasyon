@@ -33,9 +33,5 @@ namespace Tasarim1
             public decimal? KoordinatY { get; set; }
             public int? VadeGun { get; set; }
             public decimal? IskontoOran { get; set; }
-
-        
-
-
     }
 }
