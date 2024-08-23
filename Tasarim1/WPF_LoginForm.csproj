@@ -53,7 +53,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>miyaLogo.ico</ApplicationIcon>
+    <ApplicationIcon>Images\miyaLogo.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Flurl, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -238,7 +238,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="miyaLogo.ico" />
+    <Resource Include="Images\miyaLogo.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\miyaIcon.png" />

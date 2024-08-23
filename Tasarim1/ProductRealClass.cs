@@ -8,5 +8,6 @@ namespace ExcelToPanorama
 {
     internal class ProductRealClass
     { 
+
     }
 }

@@ -32,7 +32,7 @@ namespace ExcelToPanorama
 
     {
 
-        
+
         private DataTable dataTable;
         public UrunAktarim()
         {
@@ -65,7 +65,7 @@ namespace ExcelToPanorama
 
         private void btnBilgileriAktar_Click(object sender, RoutedEventArgs e)
         {
-            
+
         }
 
         private string NormalizeSpaces(string input)//boşlukları kaldıran fonk
@@ -225,7 +225,7 @@ namespace ExcelToPanorama
                         excelUygulama.Quit();
                         System.Runtime.InteropServices.Marshal.ReleaseComObject(excelUygulama);
                     }
-                    
+
                     GC.Collect();
                     GC.WaitForPendingFinalizers();
                 }
@@ -235,6 +235,18 @@ namespace ExcelToPanorama
         {
             KolonIsterlerUrun ekran = new KolonIsterlerUrun();
             ekran.Show();
+        }
+        public enum RequiredColumns//zorunlu alanlar
+        {
+            UrunKodu,
+            UrunAdi,
+            UrunGrupKodu,
+            UrunEkGrupKodu,
+            SeviyeliGrup1,
+            UreticiKodu,
+            Birim1,
+            SatisKDVOrani,
+            AlisKDVOrani
         }
     }
 }
